@@ -43,12 +43,17 @@ const SectionVerification = () => {
   }, [result])
 
   return (
-    <div className="mx-auto w-full max-w-md">
+    <div className="mx-auto flex min-h-screen w-full max-w-md flex-col p-8">
       <VerificationResult data={result} isLoading={isLoading} />
       <CredentialOverview
         data={result?.credential ?? null}
         isLoading={isLoading}
       />
+
+      <p className="mt-auto mb-0">
+        Please cross-check the information with the values on the LinkedIn
+        certificate
+      </p>
     </div>
   )
 }
