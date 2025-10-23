@@ -11,14 +11,14 @@ const CredentialOverview = ({ data, isLoading }: ICredentialOverviewProps) => {
   }
 
   return (
-    <div className="mt-4 flex flex-col gap-8">
+    <div className="my-8 flex flex-col gap-4">
       <div className="flex items-center gap-4 text-xl">
         <img
           alt=""
           className="aspect-square h-16 object-cover object-left"
           src={data?.issuer.logoUrl}
         />
-        <p>{data.issuer.name}</p>
+        <p className="font-semibold">{data.issuer.name}</p>
       </div>
 
       <p>{data.name}</p>
@@ -27,6 +27,11 @@ const CredentialOverview = ({ data, isLoading }: ICredentialOverviewProps) => {
         <p>Issued at {new Date(data.issuanceDate).toLocaleDateString()}</p>
         <p>Expires at {new Date(data.expiryDate).toLocaleDateString()}</p>
       </div>
+
+      <p className="text-foreground/50 text-sm">
+        Please cross-check the information with the values on the LinkedIn
+        certificate
+      </p>
     </div>
   )
 }

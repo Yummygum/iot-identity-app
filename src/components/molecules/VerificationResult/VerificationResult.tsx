@@ -1,5 +1,6 @@
 import { cva } from 'class-variance-authority'
 
+import ProgressCircle from '@/components/atoms/ProgressCircle/ProgressCircle'
 import { TVerificationResult } from '@/lib/schemas/verificationResultSchema'
 
 interface IVerificationResultProps {
@@ -23,53 +24,71 @@ const resultCircle = cva(
     variants: {
       status: {
         valid: 'bg-linear-to-br from-green-200 to-green-300',
-        invalid: 'bg-linear-to-br from-red-200 to-red-300',
+        invalid: 'bg-linear-to-br from-red-50 to-red-100',
         loading: 'bg-linear-to-br from-neutral-200 to-neutral-300'
       }
     }
   }
 )
 
+const resultBorder = cva([], {
+  variants: {
+    status: {
+      valid: 'stroke-green-500',
+      invalid: 'stroke-red-500',
+      loading: 'stroke-neutral-500'
+    }
+  }
+})
+
 const VerificationResult = ({ data, isLoading }: IVerificationResultProps) => {
   if (isLoading) {
     return (
-      <div className={resultCircle({ status: 'loading' })}>Loading... </div>
+      <div className="mx-auto w-full max-w-sm p-4">
+        <div className={resultCircle({ status: 'loading' })}>Loading... </div>
+      </div>
     )
   }
 
-  const reasonMessagesMap: Map<string, string> = new Map([
-    ['INVALID_SIGNATURE', 'The signature of the credential is invalid.'],
-    ['EXPIRED_CREDENTIAL', 'The credential has expired.'],
-    ['REVOKED_CREDENTIAL', 'The credential has been revoked.'],
-    ['SUSPENDED_CREDENTIAL', 'The credential is suspended.'],
-    ['NOT_VALID_YET', 'The credential is not valid yet.'],
-    [
-      'ORGANIZATION_CANT_BE_VERIFIED',
-      "The issuing organization's details can't be verified."
-    ]
-  ])
+  const totalChecks = data?.checks.length ?? -1
+  const passedChecks =
+    data?.checks.filter((check) => check.status === 'passed').length ?? -1
+
+  const passedChecksPercent = (passedChecks / totalChecks) * 100
 
   return (
-    <div
-      className={resultCircle({ status: data?.isValid ? 'valid' : 'invalid' })}
-    >
-      <p>{data?.isValid ? 'Credential has been' : 'Credential is'}</p>
-      <p className="text-2xl font-semibold">
-        {data?.isValid ? 'Validated' : 'Invalid'}
-      </p>
-
-      {data?.isValid ? (
-        <div>
+    <div className="mx-auto w-full max-w-sm p-4">
+      <div className="relative">
+        <div
+          className={resultCircle({
+            status: passedChecks === totalChecks ? 'valid' : 'invalid'
+          })}
+        >
           <p>
-            By{' '}
-            <a className="underline" href={data.verifier.url} target="_blank">
-              {data.verifier.name}
-            </a>
+            {passedChecks === totalChecks
+              ? 'Credential has been'
+              : 'Credential is'}
+          </p>
+          <p className="text-2xl font-semibold">
+            {passedChecks === totalChecks ? 'Validated' : 'Invalid'}
+          </p>
+          <p>
+            {passedChecks} out of {totalChecks} checks passed
           </p>
         </div>
-      ) : (
-        <div>Reason: {reasonMessagesMap.get(data?.reason ?? '')}</div>
-      )}
+
+        {passedChecks > 0 && (
+          <ProgressCircle
+            circleClassName={resultBorder({
+              status: passedChecks === totalChecks ? 'valid' : 'invalid'
+            })}
+            className="absolute top-0 left-0"
+            progress={passedChecksPercent}
+            size={250}
+            strokeWidth={4}
+          />
+        )}
+      </div>
     </div>
   )
 }

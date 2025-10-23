@@ -14,26 +14,27 @@ const credentialSchema = z.object({
   })
 })
 
-export const verificationResultSchema = z.discriminatedUnion('isValid', [
+const checkSchema = z.discriminatedUnion('status', [
   z.object({
-    isValid: z.literal(true),
-    verifier: z.object({
-      verifiedAt: z
-        .string()
-        .refine((date) => !isNaN(Date.parse(date)), {
-          message: 'Invalid date format'
-        })
-        .pipe(z.coerce.date()),
-      name: z.string().min(1, 'name cannot be empty'),
-      url: z.url('url must be a valid URL')
-    }),
-    credential: credentialSchema
+    name: z.string().min(1, 'check name cannot be empty'),
+    status: z.literal('passed')
   }),
   z.object({
-    isValid: z.literal(false),
-    reason: z.string().min(1, 'reason cannot be empty'),
-    credential: credentialSchema.nullable()
+    name: z.string().min(1, 'check name cannot be empty'),
+    status: z.literal('failed'),
+    error: z.string().min(1, 'error message cannot be empty')
   })
 ])
+
+export const verificationResultSchema = z.object({
+  verifier: z
+    .object({
+      name: z.string().min(1, 'verifier name cannot be empty'),
+      url: z.url('verifier url must be a valid URL')
+    })
+    .nullable(),
+  credential: credentialSchema.nullable(),
+  checks: z.array(checkSchema)
+})
 
 export type TVerificationResult = z.infer<typeof verificationResultSchema>

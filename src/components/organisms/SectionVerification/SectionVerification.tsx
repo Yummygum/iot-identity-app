@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 
 import CredentialOverview from '@/components/molecules/CredentialOverview/CredentialOverview'
+import SectionChecks from '@/components/molecules/SectionChecks/SectionChecks'
 import VerificationResult from '@/components/molecules/VerificationResult/VerificationResult'
 import {
   TVerificationResult,
@@ -22,13 +23,11 @@ const SectionVerification = () => {
         const parseRes = verificationResultSchema.parse(data)
 
         setResult(parseRes)
-
-        setResult(data)
       } catch {
         setResult({
-          isValid: false,
-          reason: 'Failed to verify credential',
-          credential: null
+          credential: null,
+          verifier: null,
+          checks: []
         })
       }
     }
@@ -43,17 +42,16 @@ const SectionVerification = () => {
   }, [result])
 
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-md flex-col p-8">
+    <div className="mx-auto flex min-h-screen w-full max-w-lg flex-col p-8">
       <VerificationResult data={result} isLoading={isLoading} />
       <CredentialOverview
         data={result?.credential ?? null}
         isLoading={isLoading}
       />
 
-      <p className="mt-auto mb-0">
-        Please cross-check the information with the values on the LinkedIn
-        certificate
-      </p>
+      {!isLoading && result !== null && result.checks !== null && (
+        <SectionChecks checks={result.checks} />
+      )}
     </div>
   )
 }

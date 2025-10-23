@@ -1,5 +1,5 @@
 export async function POST() {
-  await new Promise((resolve) => setTimeout(resolve, 1000))
+  await new Promise((resolve) => setTimeout(resolve, 0))
 
   const isValid = Math.random() < 0.5
 
@@ -27,12 +27,15 @@ export async function POST() {
     {
       code: 'ORGANIZATION_CANT_BE_VERIFIED',
       shouldShowCredential: true
+    },
+    {
+      code: 'SERVICE_UNAVAILABLE',
+      shouldShowCredential: false
     }
   ]
 
   if (isValid) {
     return Response.json({
-      isValid: true,
       verifier: {
         verifiedAt: new Date(),
         name: 'Verifier XYZ',
@@ -49,15 +52,32 @@ export async function POST() {
         expiryDate: new Date(
           new Date().setFullYear(new Date().getFullYear() + 1)
         )
-      }
+      },
+      checks: [
+        {
+          name: 'Credential Validation',
+          status: 'passed'
+        },
+        {
+          name: 'Credential Status',
+          status: 'passed'
+        },
+        {
+          name: 'Trust relation',
+          status: 'passed'
+        },
+        {
+          name: 'Issuer Domain Linkage',
+          status: 'passed'
+        }
+      ]
     })
   }
 
   const randomReason = errorCodes[Math.floor(Math.random() * errorCodes.length)]
 
   return Response.json({
-    isValid: false,
-    reason: randomReason.code,
+    verifier: null,
     credential: randomReason.shouldShowCredential
       ? {
           name: 'John Doe',
@@ -71,6 +91,28 @@ export async function POST() {
             new Date().setFullYear(new Date().getFullYear() + 1)
           )
         }
-      : null
+      : null,
+    checks: [
+      {
+        name: 'Credential Validation',
+        status: randomReason.shouldShowCredential ? 'passed' : 'failed',
+        error: randomReason.code
+      },
+      {
+        name: 'Credential Status',
+        status: 'failed',
+        error: randomReason.code
+      },
+      {
+        name: 'Trust relation',
+        status: 'failed',
+        error: randomReason.code
+      },
+      {
+        name: 'Issuer Domain Linkage',
+        status: 'failed',
+        error: randomReason.code
+      }
+    ]
   })
 }
