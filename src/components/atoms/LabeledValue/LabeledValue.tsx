@@ -8,7 +8,7 @@ interface ILabeledValueProps extends HTMLAttributes<HTMLDivElement> {
 const LabeledValue = ({ label, value, ...props }: ILabeledValueProps) => {
   return (
     <div {...props}>
-      <p className="text-foreground/50 text-sm">{label}</p>
+      <p className="text-foreground/60 text-sm">{label}</p>
       <p>{value}</p>
     </div>
   )

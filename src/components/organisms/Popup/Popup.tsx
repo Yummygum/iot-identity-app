@@ -1,5 +1,5 @@
 import { X } from 'lucide-react'
-import { HTMLAttributes } from 'react'
+import { HTMLAttributes, useId } from 'react'
 
 interface IPopupProps extends HTMLAttributes<HTMLDivElement> {
   isOpen: boolean
@@ -7,13 +7,18 @@ interface IPopupProps extends HTMLAttributes<HTMLDivElement> {
   onClose: () => void
 }
 
-const Popup = ({ isOpen, onClose, title, ...props }: IPopupProps) => {
+const Popup = ({ isOpen, onClose, title, children, ...props }: IPopupProps) => {
+  const headingId = useId()
+
   return (
     <>
       {isOpen && (
         <div
-          className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black/20"
+          aria-labelledby={headingId}
+          aria-modal="true"
+          className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black/30"
           onClick={onClose}
+          role="dialog"
         >
           <div
             className="bg-background flex max-w-lg flex-col gap-2 rounded-md p-6"
@@ -21,12 +26,14 @@ const Popup = ({ isOpen, onClose, title, ...props }: IPopupProps) => {
             {...props}
           >
             <div className="flex justify-between">
-              <h2 className="text-lg font-semibold">{title}</h2>
+              <h2 className="text-lg font-semibold" id={headingId}>
+                {title}
+              </h2>
               <button aria-label="Close popup" onClick={onClose}>
-                <X>Close</X>
+                <X />
               </button>
             </div>
-            {props.children}
+            {children}
           </div>
         </div>
       )}

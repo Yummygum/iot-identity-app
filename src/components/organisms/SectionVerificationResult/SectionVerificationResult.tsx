@@ -83,6 +83,7 @@ const SectionVerificationResult = ({
 
         {passedChecks > 0 && (
           <ProgressCircle
+            aria-label="Circular progress bar showing percentage of passed verification checks"
             circleClassName={resultBorder({
               status: passedChecks === totalChecks ? 'valid' : 'invalid'
             })}

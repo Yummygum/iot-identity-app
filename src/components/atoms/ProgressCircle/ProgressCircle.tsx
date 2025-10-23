@@ -21,7 +21,6 @@ const ProgressCircle = ({
   const radius = (size - strokeWidth) / 2
   const circumference = 2 * Math.PI * radius
   const targetDash = (progress * circumference) / 100
-
   const [dash, setDash] = useState(isAnimated ? 0 : targetDash)
 
   useEffect(() => {
@@ -39,7 +38,9 @@ const ProgressCircle = ({
       currentFrame += 1
       const progressRatio = currentFrame / totalFrames
       const easedProgress = 1 - (1 - progressRatio) ** 3
+
       setDash(easedProgress * targetDash)
+
       if (currentFrame < totalFrames) {
         requestAnimationFrame(animate)
       }
