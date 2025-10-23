@@ -6,6 +6,7 @@ import { TVerificationResult } from '@/lib/schemas/verificationResultSchema'
 interface ISectionVerificationResultProps {
   isLoading: boolean
   data: TVerificationResult | null
+  error: string | null
 }
 
 const resultCircle = cva(
@@ -43,12 +44,25 @@ const resultBorder = cva([], {
 
 const SectionVerificationResult = ({
   data,
-  isLoading
+  isLoading,
+  error
 }: ISectionVerificationResultProps) => {
   if (isLoading) {
     return (
       <section className="mx-auto w-full max-w-sm p-4">
         <div className={resultCircle({ status: 'loading' })}>Loading...</div>
+      </section>
+    )
+  }
+
+  if (error) {
+    return (
+      <section className="mx-auto w-full max-w-sm p-4">
+        <div className={resultCircle({ status: 'invalid' })}>
+          <p>Credential is</p>
+          <p className="text-2xl font-semibold">Invalid</p>
+          <p>{error}</p>
+        </div>
       </section>
     )
   }

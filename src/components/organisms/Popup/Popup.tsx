@@ -16,7 +16,7 @@ const Popup = ({ isOpen, onClose, title, children, ...props }: IPopupProps) => {
         <div
           aria-labelledby={headingId}
           aria-modal="true"
-          className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black/30"
+          className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4"
           onClick={onClose}
           role="dialog"
         >

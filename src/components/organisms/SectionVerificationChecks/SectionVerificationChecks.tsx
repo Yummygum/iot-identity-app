@@ -1,16 +1,24 @@
 import VerificationCheck from '@/components/molecules/VerificationCheck/VerificationCheck'
 
 interface ISectionVerificationChecksProps {
-  checks: {
-    name: string
-    status: 'passed' | 'failed'
-    error?: string
-  }[]
+  checks:
+    | {
+        name: string
+        status: 'passed' | 'failed'
+        error?: string
+      }[]
+    | null
+  isLoading: boolean
 }
 
 const SectionVerificationChecks = ({
-  checks
+  checks,
+  isLoading
 }: ISectionVerificationChecksProps) => {
+  if (isLoading) {
+    return null
+  }
+
   // Maps error codes to user-friendly messages
   const errorMessagesMap: Map<string, string> = new Map([
     ['INVALID_SIGNATURE', 'The signature of the credential is invalid.'],
@@ -38,20 +46,26 @@ const SectionVerificationChecks = ({
 
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="text-xl font-semibold">Checks</h2>
+      <h2 className="mb-4 text-xl font-semibold md:text-center">Checks</h2>
 
-      <div className="flex flex-col gap-2">
-        {checks.map((check, index) => (
-          <VerificationCheck
-            check={{
-              ...check,
-              description: checkDescriptionsMap.get(check.name),
-              error: check.error ? errorMessagesMap.get(check.error) : undefined
-            }}
-            key={index}
-          />
-        ))}
-      </div>
+      {checks?.length ? (
+        <div className="flex flex-col gap-2">
+          {checks.map((check, index) => (
+            <VerificationCheck
+              check={{
+                ...check,
+                description: checkDescriptionsMap.get(check.name),
+                error: check.error
+                  ? errorMessagesMap.get(check.error)
+                  : undefined
+              }}
+              key={index}
+            />
+          ))}
+        </div>
+      ) : (
+        <p className="text-foreground/60 text-center">No checks to show</p>
+      )}
     </div>
   )
 }

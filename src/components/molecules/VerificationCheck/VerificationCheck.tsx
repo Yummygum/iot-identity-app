@@ -25,19 +25,22 @@ const VerificationCheck = ({ check }: IVerificationCheckProps) => {
 
   return (
     <div>
-      <div className="flex items-center gap-2">
-        <p className="font-medium">{check.name}</p>
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex gap-2">
+          <p className="font-medium">{check.name}</p>
+          {check.description && (
+            <button aria-label="More info" onClick={openPopup}>
+              <Info className="mr-0 ml-auto" height={12} width={12} />
+            </button>
+          )}
+        </div>
         {check.status === 'passed' ? (
           <Check className="text-green-500" height={16} width={16} />
         ) : (
           <X className="text-red-500" height={16} width={16} />
         )}
-        {check.description && (
-          <button aria-label="More info" onClick={openPopup}>
-            <Info className="mr-0 ml-auto" height={16} width={16} />
-          </button>
-        )}
       </div>
+
       {check.status === 'failed' && (
         <p className="text-sm text-red-600">
           {check.error ?? 'Unknown status.'}

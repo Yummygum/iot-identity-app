@@ -16,7 +16,7 @@ const SectionCredentialOverview = ({
 
   return (
     <section className="flex flex-col gap-4">
-      <h2 className="text-xl font-semibold">Credential</h2>
+      <h2 className="mb-4 text-xl font-semibold md:text-center">Credential</h2>
 
       {data ? (
         <>
@@ -52,7 +52,7 @@ const SectionCredentialOverview = ({
           </p>
         </>
       ) : (
-        <p className="text-foreground/50">No credential to show</p>
+        <p className="text-foreground/60 text-center">No credential to show</p>
       )}
     </section>
   )
