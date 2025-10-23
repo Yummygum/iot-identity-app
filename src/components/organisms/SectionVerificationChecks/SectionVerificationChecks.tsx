@@ -1,6 +1,6 @@
-import VerificationCheck from '@/components/atoms/VerificationCheck'
+import VerificationCheck from '@/components/molecules/VerificationCheck/VerificationCheck'
 
-interface ISectionChecksProps {
+interface ISectionVerificationChecksProps {
   checks: {
     name: string
     status: 'passed' | 'failed'
@@ -8,7 +8,10 @@ interface ISectionChecksProps {
   }[]
 }
 
-const SectionChecks = ({ checks }: ISectionChecksProps) => {
+const SectionVerificationChecks = ({
+  checks
+}: ISectionVerificationChecksProps) => {
+  // Maps error codes to user-friendly messages
   const errorMessagesMap: Map<string, string> = new Map([
     ['INVALID_SIGNATURE', 'The signature of the credential is invalid.'],
     ['EXPIRED_CREDENTIAL', 'The credential has expired.'],
@@ -21,6 +24,7 @@ const SectionChecks = ({ checks }: ISectionChecksProps) => {
     ]
   ])
 
+  // Maps check names to descriptions
   const checkDescriptionsMap: Map<string, string> = new Map([
     [
       'Credential Validation',
@@ -34,7 +38,7 @@ const SectionChecks = ({ checks }: ISectionChecksProps) => {
 
   return (
     <div>
-      <h2 className="mb-2 text-xl font-semibold">Checks</h2>
+      <h2 className="py-8 text-xl font-semibold">Checks</h2>
 
       <div className="flex flex-col gap-2">
         {checks.map((check, index) => (
@@ -52,4 +56,4 @@ const SectionChecks = ({ checks }: ISectionChecksProps) => {
   )
 }
 
-export default SectionChecks
+export default SectionVerificationChecks

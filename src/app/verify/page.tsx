@@ -1,10 +1,10 @@
-import SectionVerification from '@/components/organisms/SectionVerification/SectionVerification'
+import VerificationDashboard from '@/components/organisms/VerificationDashboard/VerificationDashboard'
 
 const Verify = () => {
   return (
-    <div>
-      <SectionVerification />
-    </div>
+    <>
+      <VerificationDashboard />
+    </>
   )
 }
 

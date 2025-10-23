@@ -1,17 +1,22 @@
 import { TVerificationResult } from '@/lib/schemas/verificationResultSchema'
 
-interface ICredentialOverviewProps {
+interface ISectionCredentialOverviewProps {
   isLoading?: boolean
   data: TVerificationResult['credential']
 }
 
-const CredentialOverview = ({ data, isLoading }: ICredentialOverviewProps) => {
+const SectionCredentialOverview = ({
+  data,
+  isLoading
+}: ISectionCredentialOverviewProps) => {
   if (isLoading || !data) {
     return null
   }
 
   return (
-    <div className="my-8 flex flex-col gap-4">
+    <section className="flex flex-col gap-4 border-b border-black/10 py-8">
+      <h2 className="mb-2 text-xl font-semibold">Credential</h2>
+
       <div className="flex items-center gap-4 text-xl">
         <img
           alt=""
@@ -32,8 +37,8 @@ const CredentialOverview = ({ data, isLoading }: ICredentialOverviewProps) => {
         Please cross-check the information with the values on the LinkedIn
         certificate
       </p>
-    </div>
+    </section>
   )
 }
 
-export default CredentialOverview
+export default SectionCredentialOverview

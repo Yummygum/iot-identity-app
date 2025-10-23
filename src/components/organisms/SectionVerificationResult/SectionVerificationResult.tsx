@@ -3,7 +3,7 @@ import { cva } from 'class-variance-authority'
 import ProgressCircle from '@/components/atoms/ProgressCircle/ProgressCircle'
 import { TVerificationResult } from '@/lib/schemas/verificationResultSchema'
 
-interface IVerificationResultProps {
+interface ISectionVerificationResultProps {
   isLoading: boolean
   data: TVerificationResult | null
 }
@@ -41,12 +41,15 @@ const resultBorder = cva([], {
   }
 })
 
-const VerificationResult = ({ data, isLoading }: IVerificationResultProps) => {
+const SectionVerificationResult = ({
+  data,
+  isLoading
+}: ISectionVerificationResultProps) => {
   if (isLoading) {
     return (
-      <div className="mx-auto w-full max-w-sm p-4">
+      <section className="mx-auto w-full max-w-sm p-4">
         <div className={resultCircle({ status: 'loading' })}>Loading... </div>
-      </div>
+      </section>
     )
   }
 
@@ -57,7 +60,7 @@ const VerificationResult = ({ data, isLoading }: IVerificationResultProps) => {
   const passedChecksPercent = (passedChecks / totalChecks) * 100
 
   return (
-    <div className="mx-auto w-full max-w-sm p-4">
+    <section className="mx-auto w-full max-w-sm p-4">
       <div className="relative">
         <div
           className={resultCircle({
@@ -89,8 +92,8 @@ const VerificationResult = ({ data, isLoading }: IVerificationResultProps) => {
           />
         )}
       </div>
-    </div>
+    </section>
   )
 }
 
-export default VerificationResult
+export default SectionVerificationResult

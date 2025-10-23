@@ -16,13 +16,15 @@ const Popup = ({ isOpen, onClose, title, ...props }: IPopupProps) => {
           onClick={onClose}
         >
           <div
-            className="bg-background flex flex-col gap-2 rounded-md p-6"
+            className="bg-background flex max-w-lg flex-col gap-2 rounded-md p-6"
             onClick={(event) => event.stopPropagation()}
             {...props}
           >
             <div className="flex justify-between">
               <h2 className="text-lg font-semibold">{title}</h2>
-              <X onClick={onClose}>Close</X>
+              <button aria-label="Close popup" onClick={onClose}>
+                <X>Close</X>
+              </button>
             </div>
             {props.children}
           </div>

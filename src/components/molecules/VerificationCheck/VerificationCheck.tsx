@@ -1,7 +1,7 @@
 import { Check, Info, X } from 'lucide-react'
 import { useState } from 'react'
 
-import Popup from '@/components/molecules/Popup/Popup'
+import Popup from '@/components/organisms/Popup/Popup'
 
 interface IVerificationCheckProps {
   check: {
@@ -33,14 +33,14 @@ const VerificationCheck = ({ check }: IVerificationCheckProps) => {
           <X className="text-red-500" height={16} width={16} />
         )}
         {check.description && (
-          <button onClick={openPopup}>
+          <button aria-label="More info" onClick={openPopup}>
             <Info className="mr-0 ml-auto" height={16} width={16} />
           </button>
         )}
       </div>
       {check.status === 'failed' && (
         <p className="text-sm text-red-600">
-          {check.error ?? 'Unknown error occurred.'}
+          {check.error ?? 'Unknown status.'}
         </p>
       )}
 

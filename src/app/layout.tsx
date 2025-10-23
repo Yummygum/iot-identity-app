@@ -23,7 +23,7 @@ const RootLayout = ({
   return (
     <html lang="en">
       <body className={`${inter.variable} font-sans antialiased`}>
-        {children}
+        <main>{children}</main>
       </body>
     </html>
   )
