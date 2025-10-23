@@ -37,8 +37,8 @@ const SectionVerificationChecks = ({
   ])
 
   return (
-    <div>
-      <h2 className="py-8 text-xl font-semibold">Checks</h2>
+    <div className="flex flex-col gap-4">
+      <h2 className="text-xl font-semibold">Checks</h2>
 
       <div className="flex flex-col gap-2">
         {checks.map((check, index) => (

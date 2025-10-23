@@ -12,7 +12,7 @@ const Popup = ({ isOpen, onClose, title, ...props }: IPopupProps) => {
     <>
       {isOpen && (
         <div
-          className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black/10"
+          className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black/20"
           onClick={onClose}
         >
           <div

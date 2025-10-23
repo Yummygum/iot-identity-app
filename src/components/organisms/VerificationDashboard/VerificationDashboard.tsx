@@ -42,17 +42,21 @@ const VerificationDashboard = () => {
   }, [result])
 
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-lg flex-col p-8">
+    <div className="mx-auto flex min-h-screen w-full max-w-3xl flex-col">
+      <h1 className="sr-only">Credential Verification</h1>
+
       <SectionVerificationResult data={result} isLoading={isLoading} />
 
-      <SectionCredentialOverview
-        data={result?.credential ?? null}
-        isLoading={isLoading}
-      />
+      <div className="grid gap-12 py-8 md:grid-cols-2 md:gap-16">
+        <SectionCredentialOverview
+          data={result?.credential ?? null}
+          isLoading={isLoading}
+        />
 
-      {!isLoading && result !== null && result.checks !== null && (
-        <SectionVerificationChecks checks={result.checks} />
-      )}
+        {!isLoading && result !== null && result.checks !== null && (
+          <SectionVerificationChecks checks={result.checks} />
+        )}
+      </div>
     </div>
   )
 }

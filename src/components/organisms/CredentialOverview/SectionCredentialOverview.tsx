@@ -1,3 +1,4 @@
+import LabeledValue from '@/components/atoms/LabeledValue/LabeledValue'
 import { TVerificationResult } from '@/lib/schemas/verificationResultSchema'
 
 interface ISectionCredentialOverviewProps {
@@ -14,23 +15,33 @@ const SectionCredentialOverview = ({
   }
 
   return (
-    <section className="flex flex-col gap-4 border-b border-black/10 py-8">
-      <h2 className="mb-2 text-xl font-semibold">Credential</h2>
+    <section className="flex flex-col gap-4">
+      <h2 className="text-xl font-semibold">Credential</h2>
 
       <div className="flex items-center gap-4 text-xl">
+        {/* eslint-disable @next/next/no-img-element */}
         <img
-          alt=""
-          className="aspect-square h-16 object-cover object-left"
+          alt={data?.issuer.name}
+          className="aspect-square h-12 object-cover object-left"
           src={data?.issuer.logoUrl}
         />
         <p className="font-semibold">{data.issuer.name}</p>
       </div>
 
-      <p>{data.name}</p>
-
-      <div>
-        <p>Issued at {new Date(data.issuanceDate).toLocaleDateString()}</p>
-        <p>Expires at {new Date(data.expiryDate).toLocaleDateString()}</p>
+      <div className="grid max-w-md grid-cols-2 gap-2 py-4">
+        <LabeledValue
+          className="col-span-full"
+          label="Issued to"
+          value={data.name}
+        />
+        <LabeledValue
+          label="Issued at"
+          value={new Date(data.issuanceDate).toLocaleDateString()}
+        />
+        <LabeledValue
+          label="Expires at"
+          value={new Date(data.expiryDate).toLocaleDateString()}
+        />
       </div>
 
       <p className="text-foreground/50 text-sm">

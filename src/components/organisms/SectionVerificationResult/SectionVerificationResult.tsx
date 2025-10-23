@@ -48,19 +48,20 @@ const SectionVerificationResult = ({
   if (isLoading) {
     return (
       <section className="mx-auto w-full max-w-sm p-4">
-        <div className={resultCircle({ status: 'loading' })}>Loading... </div>
+        <div className={resultCircle({ status: 'loading' })}>Loading...</div>
       </section>
     )
   }
 
-  const totalChecks = data?.checks.length ?? -1
+  const totalChecks = data?.checks.length ?? 0
   const passedChecks =
-    data?.checks.filter((check) => check.status === 'passed').length ?? -1
-
-  const passedChecksPercent = (passedChecks / totalChecks) * 100
+    data?.checks.filter((check) => check.status === 'passed').length ?? 0
+  const passedChecksPercent =
+    totalChecks > 0 ? (passedChecks / totalChecks) * 100 : 0
 
   return (
     <section className="mx-auto w-full max-w-sm p-4">
+      <h2 className="sr-only">Verification Result</h2>
       <div className="relative">
         <div
           className={resultCircle({
