@@ -6,7 +6,7 @@ A Next.js application for verifying credentials.
 
 - **Framework**: Next.js 15.5 with App Router
 - **Language**: TypeScript
-- **Styling**: Tailwind CSS
+- **Styling**: Tailwind CSS, using `class-variance-authority` for variant management
 - **Package Manager**: Bun
 - **Linting**: ESLint with flat config
 - **Formatting**: Prettier
