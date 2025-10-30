@@ -8,12 +8,8 @@ const credentialSchema = z.object({
     name: z.string().min(1, 'issuer name cannot be empty'),
     logoUrl: z.url('logoUrl must be a valid URL'),
     colors: z.object({
-      primary: z
-        .string()
-        .min(1, 'primary color cannot be empty')
-        .optional()
-        .default('#0079C7'),
-      secondary: z.string().optional().default('#FFFFFF')
+      primary: z.string().min(1, 'primary color cannot be empty').optional(),
+      secondary: z.string().optional()
     })
   }),
   issuanceDate: z.string().refine((date) => !isNaN(Date.parse(date)), {

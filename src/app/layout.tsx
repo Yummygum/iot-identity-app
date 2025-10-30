@@ -24,7 +24,7 @@ const RootLayout = ({
   return (
     <html lang="en">
       <body className={`${oakSans.className} font-sans antialiased`}>
-        <main className="p-8">{children}</main>
+        <main>{children}</main>
       </body>
     </html>
   )

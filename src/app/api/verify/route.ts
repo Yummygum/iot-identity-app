@@ -90,11 +90,16 @@ export async function POST() {
     verifier: null,
     credential: randomReason.shouldShowCredential
       ? {
-          name: 'John Doe',
+          issuedTo: 'John Doe',
+          type: "Bachelor's Degree",
+          name: 'HBO Bouwkunde - Civil Engineering',
           issuer: {
             name: 'Amsterdam University of Applied Sciences',
             logoUrl:
-              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSm8RwvnbGaiWMpSJM7V5hPeftqJ4jj8_oiTw&s'
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSm8RwvnbGaiWMpSJM7V5hPeftqJ4jj8_oiTw&s',
+            colors: {
+              primary: randomColor
+            }
           },
           issuanceDate: new Date(),
           expiryDate: new Date(

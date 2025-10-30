@@ -3,9 +3,11 @@
 import { CSSProperties, useEffect, useState } from 'react'
 import { ZodError } from 'zod'
 
+import WhiteLabelGradients from '@/components/molecules/WhiteLabelGradients/WhiteLabelGradients'
 import SectionCredentialDetails from '@/components/organisms/SectionCredentialDetails/SectionCredentialDetails'
 import SectionIssuerInfo from '@/components/organisms/SectionIssuerInfo/SectionIssuerInfo'
 import SectionVerificationChecks from '@/components/organisms/SectionVerificationChecks/SectionVerificationChecks'
+import SectionVerificationHeader from '@/components/organisms/SectionVerificationHeader/SectionVerificationHeader'
 import {
   TVerificationResult,
   verificationResultSchema
@@ -46,27 +48,44 @@ const VerificationDashboard = () => {
   }, [result, error])
 
   return (
-    <div
-      className="mx-auto flex w-full max-w-7xl flex-col justify-between"
-      style={
-        {
-          '--color-primary': result?.credential?.issuer?.colors?.primary ?? ''
-        } as CSSProperties
-      }
-    >
-      <div className="flex">
-        <SectionVerificationChecks
-          checks={result?.checks ?? null}
-          isLoading={isLoading}
+    <div className="relative min-h-screen">
+      {result?.credential?.issuer.colors.primary && (
+        <WhiteLabelGradients
+          primaryColor={result.credential.issuer.colors.primary}
+          secondaryColor={result.credential.issuer.colors.secondary}
         />
-      </div>
+      )}
 
-      <div className="mt-32 grid grid-cols-2 gap-10">
-        <SectionCredentialDetails data={result?.credential} />
+      <div
+        className="relative mx-auto flex w-full max-w-7xl flex-col justify-between p-16"
+        style={
+          {
+            '--color-primary': result?.credential?.issuer?.colors?.primary ?? ''
+          } as CSSProperties
+        }
+      >
+        <div className="flex">
+          <div>
+            {result?.credential && (
+              <SectionVerificationHeader credential={result.credential} />
+            )}
 
-        {result?.credential?.issuer && (
-          <SectionIssuerInfo issuer={result?.credential?.issuer} />
-        )}
+            <SectionVerificationChecks
+              checks={result?.checks ?? null}
+              isLoading={isLoading}
+            />
+          </div>
+        </div>
+
+        <div className="mt-32 grid grid-cols-2 gap-10">
+          {result?.credential && (
+            <SectionCredentialDetails data={result?.credential} />
+          )}
+
+          {result?.credential?.issuer && (
+            <SectionIssuerInfo issuer={result?.credential?.issuer} />
+          )}
+        </div>
       </div>
     </div>
   )

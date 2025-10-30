@@ -9,7 +9,7 @@ const Card = ({ title, className, children, ...props }: ICardProps) => {
   return (
     <div
       className={twMerge(
-        'rounded-2xl border border-white/10 bg-white/5 p-4 shadow',
+        'rounded-2xl border border-white/8 bg-white/4 p-4 shadow',
         className
       )}
       {...props}
