@@ -2,9 +2,19 @@ import z from 'zod'
 
 const credentialSchema = z.object({
   name: z.string().min(1, 'name cannot be empty'),
+  type: z.string().optional(),
+  issuedTo: z.string().min(1, 'issuedTo cannot be empty'),
   issuer: z.object({
     name: z.string().min(1, 'issuer name cannot be empty'),
-    logoUrl: z.url('logoUrl must be a valid URL')
+    logoUrl: z.url('logoUrl must be a valid URL'),
+    colors: z.object({
+      primary: z
+        .string()
+        .min(1, 'primary color cannot be empty')
+        .optional()
+        .default('#0079C7'),
+      secondary: z.string().optional().default('#FFFFFF')
+    })
   }),
   issuanceDate: z.string().refine((date) => !isNaN(Date.parse(date)), {
     message: 'Invalid date format'

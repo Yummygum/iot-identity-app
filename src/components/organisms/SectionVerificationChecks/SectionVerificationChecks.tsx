@@ -46,10 +46,8 @@ const SectionVerificationChecks = ({
 
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="mb-4 text-xl font-semibold md:text-center">Checks</h2>
-
       {checks?.length ? (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-6">
           {checks.map((check, index) => (
             <VerificationCheck
               check={{

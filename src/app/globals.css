@@ -1,8 +1,8 @@
 @import 'tailwindcss';
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #131517;
+  --foreground: #ffffff;
 }
 
 @theme inline {
@@ -10,6 +10,32 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --color-blue: oklch(56.153% 0.14952 247.54);
+  --color-blue-50: oklch(94.622% 0.02999 235.63);
+  --color-blue-100: oklch(90.187% 0.05498 236.72);
+  --color-blue-200: oklch(81.708% 0.10408 238.34);
+  --color-blue-300: oklch(74.11% 0.14739 241.41);
+  --color-blue-400: oklch(67.822% 0.17937 247.5);
+  --color-blue-500: oklch(56.153% 0.14952 247.54);
+  --color-blue-600: oklch(47.567% 0.12497 246.96);
+  --color-blue-700: oklch(38.574% 0.09917 245.99);
+  --color-blue-800: oklch(29.37% 0.0719 243.63);
+  --color-blue-900: oklch(18.986% 0.04177 237.5);
+  --color-blue-950: oklch(13.038% 0.0252 227.1);
+
+  --color-red: oklch(49.303% 0.1944 28.38);
+  --color-red-50: oklch(90.29% 0.04381 17.993);
+  --color-red-100: oklch(86.191% 0.06564 18.508);
+  --color-red-200: oklch(78.35% 0.10808 19.787);
+  --color-red-300: oklch(71.168% 0.15417 21.732);
+  --color-red-400: oklch(65.347% 0.19542 24.31);
+  --color-red-500: oklch(60.945% 0.22588 27.222);
+  --color-red-600: oklch(56.698% 0.22514 28.524);
+  --color-red-700: oklch(49.303% 0.1944 28.38);
+  --color-red-800: oklch(38.679% 0.15041 28.104);
+  --color-red-900: oklch(27.59% 0.10283 27.319);
+  --color-red-950: oklch(21.535% 0.07615 26.458);
 }
 
 body {

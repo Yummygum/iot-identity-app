@@ -1,13 +1,14 @@
 import type { Metadata } from 'next'
 
-import { Inter } from 'next/font/google'
-import { ReactNode } from 'react'
+import localFont from 'next/font/local'
 
 import './globals.css'
 
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter'
+import { ReactNode } from 'react'
+
+const oakSans = localFont({
+  src: './fonts/OakSansVF.woff2',
+  variable: '--font-sans'
 })
 
 export const metadata: Metadata = {
@@ -22,7 +23,7 @@ const RootLayout = ({
 }>) => {
   return (
     <html lang="en">
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <body className={`${oakSans.className} font-sans antialiased`}>
         <main className="p-8">{children}</main>
       </body>
     </html>

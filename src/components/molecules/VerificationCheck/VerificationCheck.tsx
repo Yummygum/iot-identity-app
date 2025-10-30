@@ -1,6 +1,7 @@
-import { Check, Info, X } from 'lucide-react'
+import { Info } from 'lucide-react'
 import { useState } from 'react'
 
+import VerificationProgressIcon from '@/components/atoms/VerificationProgressIcon/VerificationProgressIcon'
 import Popup from '@/components/organisms/Popup/Popup'
 
 interface IVerificationCheckProps {
@@ -25,7 +26,11 @@ const VerificationCheck = ({ check }: IVerificationCheckProps) => {
 
   return (
     <div>
-      <div className="flex items-center justify-between gap-2">
+      <div className="flex items-center gap-6">
+        <VerificationProgressIcon
+          status={check.status === 'passed' ? 'success' : 'failed'}
+        />
+
         <div className="flex gap-2">
           <p className="font-medium">{check.name}</p>
           {check.description && (
@@ -34,18 +39,7 @@ const VerificationCheck = ({ check }: IVerificationCheckProps) => {
             </button>
           )}
         </div>
-        {check.status === 'passed' ? (
-          <Check className="text-green-500" height={16} width={16} />
-        ) : (
-          <X className="text-red-500" height={16} width={16} />
-        )}
       </div>
-
-      {check.status === 'failed' && (
-        <p className="text-sm text-red-600">
-          {check.error ?? 'Unknown status.'}
-        </p>
-      )}
 
       {isOpen && check.description && (
         <Popup isOpen={isOpen} onClose={closePopup} title={check.name}>

@@ -1,11 +1,11 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { CSSProperties, useEffect, useState } from 'react'
 import { ZodError } from 'zod'
 
-import SectionCredentialOverview from '@/components/organisms/CredentialOverview/SectionCredentialOverview'
+import SectionCredentialDetails from '@/components/organisms/SectionCredentialDetails/SectionCredentialDetails'
+import SectionIssuerInfo from '@/components/organisms/SectionIssuerInfo/SectionIssuerInfo'
 import SectionVerificationChecks from '@/components/organisms/SectionVerificationChecks/SectionVerificationChecks'
-import SectionVerificationResult from '@/components/organisms/SectionVerificationResult/SectionVerificationResult'
 import {
   TVerificationResult,
   verificationResultSchema
@@ -46,25 +46,27 @@ const VerificationDashboard = () => {
   }, [result, error])
 
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-3xl flex-col">
-      <h1 className="sr-only">Credential Verification</h1>
-
-      <SectionVerificationResult
-        data={result}
-        error={error}
-        isLoading={isLoading}
-      />
-
-      <div className="grid gap-12 py-8 md:grid-cols-2 md:gap-16">
-        <SectionCredentialOverview
-          data={result?.credential ?? null}
-          isLoading={isLoading}
-        />
-
+    <div
+      className="mx-auto flex w-full max-w-7xl flex-col justify-between"
+      style={
+        {
+          '--color-primary': result?.credential?.issuer?.colors?.primary ?? ''
+        } as CSSProperties
+      }
+    >
+      <div className="flex">
         <SectionVerificationChecks
           checks={result?.checks ?? null}
           isLoading={isLoading}
         />
+      </div>
+
+      <div className="mt-32 grid grid-cols-2 gap-10">
+        <SectionCredentialDetails data={result?.credential} />
+
+        {result?.credential?.issuer && (
+          <SectionIssuerInfo issuer={result?.credential?.issuer} />
+        )}
       </div>
     </div>
   )

@@ -34,6 +34,11 @@ export async function POST() {
     }
   ]
 
+  const randomColors = ['#00C785', '#0079C7', '#C76A00']
+
+  const randomColor =
+    randomColors[Math.floor(Math.random() * randomColors.length)]
+
   if (isValid) {
     return Response.json({
       verifier: {
@@ -42,11 +47,16 @@ export async function POST() {
         url: 'https://example.com/verifier-xyz'
       },
       credential: {
-        name: 'John Doe',
+        issuedTo: 'John Doe',
+        type: "Bachelor's Degree",
+        name: 'HBO Bouwkunde - Civil Engineering',
         issuer: {
           name: 'Amsterdam University of Applied Sciences',
           logoUrl:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSm8RwvnbGaiWMpSJM7V5hPeftqJ4jj8_oiTw&s'
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSm8RwvnbGaiWMpSJM7V5hPeftqJ4jj8_oiTw&s',
+          colors: {
+            primary: randomColor
+          }
         },
         issuanceDate: new Date(),
         expiryDate: new Date(
