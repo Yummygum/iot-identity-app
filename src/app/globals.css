@@ -45,11 +45,16 @@ body {
 }
 
 .fade-in {
-  opacity: 1;
+  opacity: 0;
   animation-duration: 0.5s;
   animation-timing-function: ease-in;
   animation-iteration-count: 1;
+  animation-fill-mode: both;
   animation-name: fadeInOpacity;
+
+  &.fast {
+    animation-duration: 0.2s;
+  }
 }
 
 @keyframes fadeInOpacity {

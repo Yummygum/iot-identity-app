@@ -96,7 +96,7 @@ const VerificationDashboard = () => {
           } as CSSProperties
         }
       >
-        {currentScreen === VerificationScreenState.RESULTS ? (
+        {currentScreen === VerificationScreenState.RESULTS && credential ? (
           <>
             <div className="flex">
               <div>

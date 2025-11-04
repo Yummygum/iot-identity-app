@@ -38,7 +38,7 @@ const VerificationLanding = ({
 
       {credential && (
         <div className="flex justify-end">
-          <div className="relative w-full max-w-md">
+          <div className="fade-in fast relative w-full max-w-md [animation-delay:700ms]">
             {credential?.verifier?.logoUrl && (
               <Card
                 className="absolute top-0 right-0 h-15 translate-x-8 -translate-y-8 rounded-2xl border-white/15 bg-[#323435]"

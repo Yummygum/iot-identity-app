@@ -1,5 +1,5 @@
-/* eslint-disable no-unused-vars */
 import ArrowRight from './icons/arrow-right'
+import CaretDoubleRight from './icons/caret-double-right'
 import Check from './icons/check'
 import DottedCircle from './icons/dotted-circle'
 
@@ -18,5 +18,6 @@ export enum IconRotate {
 export const iconComponents = {
   check: Check,
   dottedCircle: DottedCircle,
-  arrowRight: ArrowRight
+  arrowRight: ArrowRight,
+  caretDoubleRight: CaretDoubleRight
 }
