@@ -2,6 +2,7 @@ import { motion } from 'motion/react'
 import { Dispatch, SetStateAction } from 'react'
 
 import Icon from '@/components/atoms/Icon'
+import DegreeTable from '@/components/organisms/DegreeTable/DegreeTable'
 import { TCredential } from '@/lib/schemas/verificationResultSchema'
 
 interface IDetailsModalProps {
@@ -22,14 +23,14 @@ const DetailsModal = ({ credential, setIsModalOpen }: IDetailsModalProps) => {
 
       <motion.div
         animate={{ x: 0, opacity: 1 }}
-        className="right-0 h-full w-full max-w-2xl overflow-hidden rounded-2xl border border-white/8 bg-white/7 backdrop-blur-2xl"
+        className="right-0 h-full w-full max-w-2xl overflow-hidden overflow-y-auto rounded-2xl border border-white/8 bg-white/7 backdrop-blur-2xl"
         exit={{ x: '100%', opacity: 0 }}
         initial={{ x: '100%', opacity: 0 }}
         transition={{
           duration: 0.2
         }}
       >
-        <header className="flex items-center justify-between border-b border-white/8 bg-white/4 p-4">
+        <header className="sticky top-0 flex items-center justify-between border-b border-white/8 bg-white/4 p-4">
           <button
             className="flex aspect-square h-8 cursor-pointer items-center justify-center rounded-sm hover:bg-white/7"
             onClick={() => setIsModalOpen(false)}
@@ -40,9 +41,13 @@ const DetailsModal = ({ credential, setIsModalOpen }: IDetailsModalProps) => {
           <button>Issuer details</button>
         </header>
 
-        <div className="p-12">
-          <h2 className="mb-2 text-3xl font-medium">{credential.type}</h2>
-          <p className="text-foreground/60">{credential.name}</p>
+        <div className="p-8">
+          <div className="mb-16">
+            <h2 className="mb-2 text-3xl font-medium">{credential.type}</h2>
+            <p className="text-foreground/60">{credential.name}</p>
+          </div>
+
+          <DegreeTable />
         </div>
       </motion.div>
     </motion.div>
