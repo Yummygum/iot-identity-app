@@ -1,6 +1,6 @@
 import z from 'zod'
 
-const credentialSchema = z.object({
+export const credentialSchema = z.object({
   name: z.string().min(1, 'name cannot be empty'),
   type: z.string().optional(),
   issuedTo: z.string().min(1, 'issuedTo cannot be empty'),
@@ -39,7 +39,6 @@ const checkSchema = z.discriminatedUnion('status', [
 ])
 
 export const verificationResultSchema = z.object({
-  credential: credentialSchema.nullable(),
   checks: z.array(checkSchema)
 })
 

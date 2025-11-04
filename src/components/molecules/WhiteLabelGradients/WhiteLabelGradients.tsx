@@ -8,7 +8,7 @@ const WhiteLabelGradients = ({
   secondaryColor
 }: IWhiteLabelGradientsProps) => {
   return (
-    <div className="absolute flex h-full w-full flex-col justify-between overflow-hidden">
+    <div className="fade-in absolute flex h-full w-full flex-col justify-between overflow-hidden opacity-0">
       <div className="relative">
         <svg
           className="absolute top-0 left-0"

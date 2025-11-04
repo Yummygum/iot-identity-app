@@ -79,6 +79,10 @@ export async function POST() {
         {
           name: 'Issuer Domain Linkage',
           status: 'passed'
+        },
+        {
+          name: 'Issuer linked from VP',
+          status: 'passed'
         }
       ]
     })
@@ -87,33 +91,6 @@ export async function POST() {
   const randomReason = errorCodes[Math.floor(Math.random() * errorCodes.length)]
 
   return Response.json({
-    verifier: null,
-    credential: randomReason.shouldShowCredential
-      ? {
-          issuedTo: 'John Doe',
-          type: "Bachelor's Degree",
-          name: 'HBO Bouwkunde - Civil Engineering',
-          issuer: {
-            name: 'Amsterdam University of Applied Sciences',
-            logoUrl:
-              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSm8RwvnbGaiWMpSJM7V5hPeftqJ4jj8_oiTw&s',
-            colors: {
-              primary: randomColor
-            }
-          },
-          issuanceDate: new Date(),
-          expiryDate: new Date(
-            new Date().setFullYear(new Date().getFullYear() + 1)
-          ),
-          verifier: {
-            verifiedAt: new Date(),
-            name: 'Examenkamer',
-            url: 'https://example.com/verifier-xyz',
-            logoUrl:
-              'https://www.examenkamer.nl/inhoud/uploads/Logo-full-color.svg'
-          }
-        }
-      : null,
     checks: [
       {
         name: 'Credential Validation',
@@ -132,6 +109,11 @@ export async function POST() {
       },
       {
         name: 'Issuer Domain Linkage',
+        status: 'failed',
+        error: randomReason.code
+      },
+      {
+        name: 'Issuer linked from VP',
         status: 'failed',
         error: randomReason.code
       }

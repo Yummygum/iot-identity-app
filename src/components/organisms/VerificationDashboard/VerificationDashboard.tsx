@@ -10,6 +10,7 @@ import SectionVerificationChecks from '@/components/organisms/SectionVerificatio
 import SectionVerificationHeader from '@/components/organisms/SectionVerificationHeader/SectionVerificationHeader'
 import VerificationLanding from '@/components/organisms/VerificationLanding/VerificationLanding'
 import {
+  credentialSchema,
   TCredential,
   TVerificationResult,
   verificationResultSchema
@@ -26,18 +27,17 @@ const VerificationDashboard = () => {
   const [currentScreen, setCurrentScreen] = useState<VerificationScreenState>(
     VerificationScreenState.LANDING
   )
-  const [result, setResult] = useState<TVerificationResult | null>(null)
+  const [checks, setChecks] = useState<TVerificationResult | null>(null)
   const [credential, setCredential] = useState<TCredential | null>(null)
 
   const fetchCredential = async () => {
     try {
       const res = await fetch('/api/credential', { method: 'POST' })
       const data = await res.json()
-      const parseRes = verificationResultSchema
-        .pick({ credential: true })
-        .parse(data)
 
-      setCredential(parseRes.credential)
+      const parseRes = credentialSchema.parse(data.credential)
+
+      setCredential(parseRes)
     } catch (err) {
       if (err instanceof ZodError) {
         setError('Error fetching credential')
@@ -56,7 +56,7 @@ const VerificationDashboard = () => {
 
       const parseRes = verificationResultSchema.parse(data)
 
-      setResult(parseRes)
+      setChecks(parseRes)
     } catch (err) {
       if (err instanceof ZodError) {
         setError('Error verifying credential')
@@ -74,10 +74,10 @@ const VerificationDashboard = () => {
   }, [])
 
   useEffect(() => {
-    if (result !== null || error !== null) {
+    if (checks !== null || error !== null) {
       setIsLoading(false)
     }
-  }, [result, error])
+  }, [checks, error])
 
   return (
     <div className="relative flex min-h-screen">
@@ -92,7 +92,7 @@ const VerificationDashboard = () => {
         className="relative mx-auto flex w-full max-w-7xl grow flex-col justify-between p-16"
         style={
           {
-            '--color-primary': result?.credential?.issuer?.colors?.primary ?? ''
+            '--color-primary': credential?.issuer?.colors?.primary ?? ''
           } as CSSProperties
         }
       >
@@ -100,24 +100,22 @@ const VerificationDashboard = () => {
           <>
             <div className="flex">
               <div>
-                {result?.credential && (
-                  <SectionVerificationHeader credential={result.credential} />
+                {credential && (
+                  <SectionVerificationHeader credential={credential} />
                 )}
 
                 <SectionVerificationChecks
-                  checks={result?.checks ?? null}
+                  checks={checks?.checks ?? null}
                   isLoading={isLoading}
                 />
               </div>
             </div>
 
             <div className="mt-32 grid grid-cols-2 gap-10">
-              {result?.credential && (
-                <SectionCredentialDetails data={result?.credential} />
-              )}
+              {credential && <SectionCredentialDetails data={credential} />}
 
-              {result?.credential?.issuer && (
-                <SectionIssuerInfo issuer={result?.credential?.issuer} />
+              {credential?.issuer && (
+                <SectionIssuerInfo issuer={credential?.issuer} />
               )}
             </div>
           </>
