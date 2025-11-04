@@ -46,7 +46,7 @@ const DUMMY_DATA: {
 
 const DegreeTable = () => {
   return (
-    <Table className="table-fixed">
+    <Table>
       <TableHeader>
         <TableRow>
           <TableHead className="w-60">Course</TableHead>
@@ -57,7 +57,9 @@ const DegreeTable = () => {
       <TableBody className="text-foreground/60">
         {DUMMY_DATA.map((item, index) => (
           <TableRow key={index}>
-            <TableCell className="whitespace-normal">{item.course}</TableCell>
+            <TableCell className="whitespace-normal">
+              <span className="block w-48">{item.course}</span>
+            </TableCell>
             <TableCell>{item.status}</TableCell>
             <TableCell>{item.grade}</TableCell>
           </TableRow>

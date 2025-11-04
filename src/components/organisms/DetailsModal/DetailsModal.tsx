@@ -45,13 +45,13 @@ const DetailsModal = ({ credential, setIsModalOpen }: IDetailsModalProps) => {
           </button>
         </header>
 
-        <div className="max-h-full overflow-y-auto p-8">
+        <div className="max-h-full overflow-y-auto p-6 md:p-8">
           <div className="mb-16">
             <h2 className="mb-2 text-3xl font-medium">{credential.type}</h2>
 
             <p className="text-foreground/60 mb-8">{credential.name}</p>
 
-            <div className="grid grid-cols-2">
+            <div className="grid gap-2 md:grid-cols-2">
               <div className="flex items-center gap-3">
                 <Card className="flex h-8 w-8 items-center justify-center rounded-sm p-0">
                   <Icon name="calendar" />

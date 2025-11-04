@@ -90,7 +90,7 @@ const VerificationDashboard = () => {
       )}
 
       <div
-        className="relative mx-auto flex w-full max-w-7xl grow flex-col justify-between p-16"
+        className="relative mx-auto flex w-full max-w-7xl grow flex-col justify-between p-8 md:p-16"
         style={
           {
             '--color-primary': credential?.issuer?.colors?.primary ?? ''
@@ -112,7 +112,7 @@ const VerificationDashboard = () => {
               </div>
             </div>
 
-            <div className="mt-32 grid grid-cols-2 gap-10">
+            <div className="mt-16 grid gap-10 md:mt-32 md:grid-cols-2">
               {credential && <SectionCredentialDetails data={credential} />}
 
               {credential?.issuer && (

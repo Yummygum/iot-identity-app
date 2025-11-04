@@ -16,9 +16,9 @@ const VerificationLanding = ({
   setCurrentScreen
 }: IVerificationLandingProps) => {
   return (
-    <div className="grid h-full grid-cols-2 items-center">
+    <div className="grid h-full items-center md:grid-cols-2">
       <div className="flex flex-col gap-6">
-        <h1 className="text-6xl font-medium">
+        <h1 className="text-2xl font-medium md:text-6xl">
           Verify this credential to check its validity
         </h1>
         <p className="text-foreground/60">
