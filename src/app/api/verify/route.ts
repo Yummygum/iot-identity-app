@@ -41,19 +41,12 @@ export async function POST() {
 
   if (isValid) {
     return Response.json({
-      verifier: {
-        verifiedAt: new Date(),
-        name: 'Verifier XYZ',
-        url: 'https://example.com/verifier-xyz'
-      },
       credential: {
         issuedTo: 'John Doe',
         type: "Bachelor's Degree",
         name: 'HBO Bouwkunde - Civil Engineering',
         issuer: {
-          name: 'Amsterdam University of Applied Sciences',
-          logoUrl:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSm8RwvnbGaiWMpSJM7V5hPeftqJ4jj8_oiTw&s',
+          name: 'EVC Nederland',
           colors: {
             primary: randomColor
           }
@@ -61,7 +54,14 @@ export async function POST() {
         issuanceDate: new Date(),
         expiryDate: new Date(
           new Date().setFullYear(new Date().getFullYear() + 1)
-        )
+        ),
+        verifier: {
+          verifiedAt: new Date(),
+          name: 'Examenkamer',
+          url: 'https://example.com/verifier-xyz',
+          logoUrl:
+            'https://www.examenkamer.nl/inhoud/uploads/Logo-full-color.svg'
+        }
       },
       checks: [
         {
@@ -104,7 +104,14 @@ export async function POST() {
           issuanceDate: new Date(),
           expiryDate: new Date(
             new Date().setFullYear(new Date().getFullYear() + 1)
-          )
+          ),
+          verifier: {
+            verifiedAt: new Date(),
+            name: 'Examenkamer',
+            url: 'https://example.com/verifier-xyz',
+            logoUrl:
+              'https://www.examenkamer.nl/inhoud/uploads/Logo-full-color.svg'
+          }
         }
       : null,
     checks: [

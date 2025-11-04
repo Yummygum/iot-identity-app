@@ -122,7 +122,7 @@ const eslintConfig = [
       'no-unreachable-loop': 2,
       'no-use-before-define': 0,
       'no-useless-rename': 2,
-      'no-unused-vars': [
+      '@typescript-eslint/no-unused-vars': [
         'error',
         {
           argsIgnorePattern: '^_',

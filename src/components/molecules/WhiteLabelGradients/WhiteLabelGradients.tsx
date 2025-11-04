@@ -7,8 +7,6 @@ const WhiteLabelGradients = ({
   primaryColor,
   secondaryColor
 }: IWhiteLabelGradientsProps) => {
-  console.log(primaryColor, secondaryColor)
-
   return (
     <div className="absolute flex h-full w-full flex-col justify-between overflow-hidden">
       <div className="relative">

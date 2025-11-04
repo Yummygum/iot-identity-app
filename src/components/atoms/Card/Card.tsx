@@ -2,10 +2,17 @@ import { ComponentProps } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 interface ICardProps extends ComponentProps<'div'> {
-  title: string
+  title?: string
+  contentClassName?: string
 }
 
-const Card = ({ title, className, children, ...props }: ICardProps) => {
+const Card = ({
+  title,
+  className,
+  children,
+  contentClassName,
+  ...props
+}: ICardProps) => {
   return (
     <div
       className={twMerge(
@@ -14,11 +21,13 @@ const Card = ({ title, className, children, ...props }: ICardProps) => {
       )}
       {...props}
     >
-      <div className="mb-2 flex flex-col justify-between">
-        <h2 className="text-lg font-medium">{title}</h2>
-      </div>
+      {title && (
+        <div className="mb-2 flex flex-col justify-between">
+          <h2 className="text-lg font-medium">{title}</h2>
+        </div>
+      )}
 
-      <div>{children}</div>
+      <div className={contentClassName}>{children}</div>
     </div>
   )
 }

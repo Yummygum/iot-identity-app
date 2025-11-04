@@ -31,7 +31,7 @@ const VerificationProgressIcon = ({
         )
       case 'failed':
         return (
-          <div className="bg-red flex h-full w-full items-center justify-center rounded-full bg-linear-to-bl from-transparent from-50% to-white/20">
+          <div className="bg-red flex h-full w-full items-center justify-center rounded-full">
             <XIcon height={ICON_SIZE} width={ICON_SIZE} />
           </div>
         )

@@ -6,7 +6,6 @@ const credentialSchema = z.object({
   issuedTo: z.string().min(1, 'issuedTo cannot be empty'),
   issuer: z.object({
     name: z.string().min(1, 'issuer name cannot be empty'),
-    logoUrl: z.url('logoUrl must be a valid URL'),
     colors: z.object({
       primary: z.string().min(1, 'primary color cannot be empty').optional(),
       secondary: z.string().optional()
@@ -17,7 +16,14 @@ const credentialSchema = z.object({
   }),
   expiryDate: z.string().refine((date) => !isNaN(Date.parse(date)), {
     message: 'Invalid date format'
-  })
+  }),
+  verifier: z
+    .object({
+      name: z.string().min(1, 'verifier name cannot be empty'),
+      url: z.url('verifier url must be a valid URL'),
+      logoUrl: z.url('verifier logoUrl must be a valid URL').optional()
+    })
+    .nullable()
 })
 
 const checkSchema = z.discriminatedUnion('status', [
@@ -33,14 +39,9 @@ const checkSchema = z.discriminatedUnion('status', [
 ])
 
 export const verificationResultSchema = z.object({
-  verifier: z
-    .object({
-      name: z.string().min(1, 'verifier name cannot be empty'),
-      url: z.url('verifier url must be a valid URL')
-    })
-    .nullable(),
   credential: credentialSchema.nullable(),
   checks: z.array(checkSchema)
 })
 
 export type TVerificationResult = z.infer<typeof verificationResultSchema>
+export type TCredential = z.infer<typeof credentialSchema>
