@@ -1,7 +1,10 @@
 import ArrowRight from './icons/arrow-right'
+import ArrowRightUp from './icons/arrow-right-up'
+import Calendar from './icons/calendar'
 import CaretDoubleRight from './icons/caret-double-right'
 import Check from './icons/check'
 import DottedCircle from './icons/dotted-circle'
+import MapPin from './icons/map-pin'
 
 // Types
 export enum IconRotate {
@@ -16,8 +19,11 @@ export enum IconRotate {
 }
 
 export const iconComponents = {
+  arrowRightUp: ArrowRightUp,
   check: Check,
   dottedCircle: DottedCircle,
   arrowRight: ArrowRight,
-  caretDoubleRight: CaretDoubleRight
+  caretDoubleRight: CaretDoubleRight,
+  calendar: Calendar,
+  mapPin: MapPin
 }

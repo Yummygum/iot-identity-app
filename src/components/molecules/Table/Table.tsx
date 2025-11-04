@@ -65,7 +65,7 @@ const TableRow = ({ className, ...props }: React.ComponentProps<'tr'>) => {
   return (
     <tr
       className={cn(
-        'hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors',
+        'data-[state=selected]:bg-muted border-b transition-colors hover:bg-white/4',
         className
       )}
       data-slot="table-row"
@@ -78,7 +78,7 @@ const TableHead = ({ className, ...props }: React.ComponentProps<'th'>) => {
   return (
     <th
       className={cn(
-        'text-foreground h-10 bg-white/3 py-4 pr-2 pl-6 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
+        'text-foreground h-10 bg-white/3 py-4 pr-2 pl-6 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-0.5',
         className
       )}
       data-slot="table-head"
@@ -91,7 +91,7 @@ const TableCell = ({ className, ...props }: React.ComponentProps<'td'>) => {
   return (
     <td
       className={cn(
-        'border-b border-white/8 py-6 pr-2 pl-6 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
+        'border-b border-white/8 py-6 pr-2 pl-6 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-0.5',
         className
       )}
       data-slot="table-cell"

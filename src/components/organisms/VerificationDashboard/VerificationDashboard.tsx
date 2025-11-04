@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { CSSProperties, useEffect, useState } from 'react'
 import { ZodError } from 'zod'
 
@@ -126,6 +127,17 @@ const VerificationDashboard = () => {
           />
         )}
       </div>
+
+      {currentScreen === VerificationScreenState.LANDING && (
+        <div className="fade-in absolute right-0 bottom-0 -z-10">
+          <Image
+            alt=""
+            height={700}
+            src={'/img/background-texture.png'}
+            width={700}
+          />
+        </div>
+      )}
     </div>
   )
 }

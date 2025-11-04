@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction } from 'react'
 
 import Button from '@/components/atoms/Button/Button'
-import Card from '@/components/atoms/Card/Card'
 import Icon from '@/components/atoms/Icon'
+import CredentialOverviewCard from '@/components/molecules/CredentialOverviewCard/CredentialOverviewCard'
 import { VerificationScreenState } from '@/components/organisms/VerificationDashboard/VerificationDashboard'
 import { TCredential } from '@/lib/schemas/verificationResultSchema'
 
@@ -38,30 +38,7 @@ const VerificationLanding = ({
 
       {credential && (
         <div className="flex justify-end">
-          <div className="fade-in fast relative w-full max-w-md [animation-delay:700ms]">
-            {credential?.verifier?.logoUrl && (
-              <Card
-                className="absolute top-0 right-0 h-15 translate-x-8 -translate-y-8 rounded-2xl border-white/15 bg-[#323435]"
-                contentClassName="h-full"
-              >
-                <div className="h-full">
-                  <img
-                    alt={`${credential.verifier.name} logo`}
-                    className="h-full w-auto"
-                    src={credential.verifier.logoUrl}
-                  />
-                </div>
-              </Card>
-            )}
-
-            <Card className="" title="Bachelor's degree">
-              <div className="text-foreground/60">
-                <p className="mb-6">{credential?.name}</p>
-
-                <p className="text-sm">Issuer • {credential?.issuer.name}</p>
-              </div>
-            </Card>
-          </div>
+          <CredentialOverviewCard credential={credential} />
         </div>
       )}
     </div>
