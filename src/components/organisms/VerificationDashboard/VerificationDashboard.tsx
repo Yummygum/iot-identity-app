@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { CSSProperties, useEffect, useState } from 'react'
 import { ZodError } from 'zod'
 
+import ProgressCircle from '@/components/atoms/ProgressCircle/ProgressCircle'
 import WhiteLabelGradients from '@/components/molecules/WhiteLabelGradients/WhiteLabelGradients'
 import SectionCredentialDetails from '@/components/organisms/SectionCredentialDetails/SectionCredentialDetails'
 import SectionIssuerInfo from '@/components/organisms/SectionIssuerInfo/SectionIssuerInfo'
@@ -99,7 +100,7 @@ const VerificationDashboard = () => {
       >
         {currentScreen === VerificationScreenState.RESULTS && credential ? (
           <>
-            <div className="flex">
+            <div className="grid items-center gap-16 py-16 md:grid-cols-2">
               <div>
                 {credential && (
                   <SectionVerificationHeader credential={credential} />
@@ -110,9 +111,23 @@ const VerificationDashboard = () => {
                   isLoading={isLoading}
                 />
               </div>
+
+              {checks && (
+                <div className="h-full justify-self-end p-4">
+                  <ProgressCircle
+                    className="max-h-96"
+                    gapSize={10}
+                    size={500}
+                    statuses={checks.checks.map(
+                      (check) => check.status === 'passed'
+                    )}
+                    strokeWidth={1.5}
+                  />
+                </div>
+              )}
             </div>
 
-            <div className="mt-16 grid gap-10 md:mt-32 md:grid-cols-2">
+            <div className="mt-0 grid gap-10 md:grid-cols-2">
               {credential && <SectionCredentialDetails data={credential} />}
 
               {credential?.issuer && (

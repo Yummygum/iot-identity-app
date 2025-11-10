@@ -4,6 +4,7 @@ import Calendar from './icons/calendar'
 import CaretDoubleRight from './icons/caret-double-right'
 import Check from './icons/check'
 import DottedCircle from './icons/dotted-circle'
+import IdentificationCard from './icons/identification-card'
 import MapPin from './icons/map-pin'
 
 // Types
@@ -25,5 +26,6 @@ export const iconComponents = {
   arrowRight: ArrowRight,
   caretDoubleRight: CaretDoubleRight,
   calendar: Calendar,
-  mapPin: MapPin
+  mapPin: MapPin,
+  identificationCard: IdentificationCard
 }

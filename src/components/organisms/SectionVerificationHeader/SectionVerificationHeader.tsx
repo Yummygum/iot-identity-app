@@ -1,14 +1,14 @@
-import { TVerificationResult } from '@/lib/schemas/verificationResultSchema'
+import { TCredential } from '@/lib/schemas/verificationResultSchema'
 
 interface ISectionVerificationHeaderProps {
-  credential: NonNullable<TVerificationResult['credential']>
+  credential: TCredential
 }
 
 const SectionVerificationHeader = ({
   credential
 }: ISectionVerificationHeaderProps) => {
   return (
-    <header className="py-16">
+    <header className="pb-16">
       {credential.type ? (
         <>
           <h1 className="mb-4 text-5xl font-medium">{credential.type}</h1>

@@ -65,7 +65,7 @@ export async function POST() {
       },
       checks: [
         {
-          name: 'Credential Validation',
+          name: 'Credential Authentication',
           status: 'passed'
         },
         {
@@ -73,15 +73,15 @@ export async function POST() {
           status: 'passed'
         },
         {
-          name: 'Trust relation',
+          name: 'Ecosystem Connection',
           status: 'passed'
         },
         {
-          name: 'Issuer Domain Linkage',
+          name: 'Issuer Domain',
           status: 'passed'
         },
         {
-          name: 'Issuer linked from VP',
+          name: 'Profile Check',
           status: 'passed'
         }
       ]
@@ -93,7 +93,7 @@ export async function POST() {
   return Response.json({
     checks: [
       {
-        name: 'Credential Validation',
+        name: 'Credential Authentication',
         status: randomReason.shouldShowCredential ? 'passed' : 'failed',
         error: randomReason.code
       },
@@ -103,17 +103,17 @@ export async function POST() {
         error: randomReason.code
       },
       {
-        name: 'Trust relation',
+        name: 'Ecosystem Connection',
         status: 'failed',
         error: randomReason.code
       },
       {
-        name: 'Issuer Domain Linkage',
+        name: 'Issuer Domain',
         status: 'failed',
         error: randomReason.code
       },
       {
-        name: 'Issuer linked from VP',
+        name: 'Profile Check',
         status: 'failed',
         error: randomReason.code
       }

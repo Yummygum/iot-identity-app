@@ -16,8 +16,8 @@ const VerificationLanding = ({
   setCurrentScreen
 }: IVerificationLandingProps) => {
   return (
-    <div className="grid h-full items-center md:grid-cols-2">
-      <div className="flex flex-col gap-6">
+    <div className="grid h-full grid-rows-[1fr_1fr] items-center md:grid-cols-2 md:grid-rows-1">
+      <div className="row-start-2 flex flex-col gap-6 md:row-auto">
         <h1 className="text-2xl font-medium md:text-6xl">
           Verify this credential to check its validity
         </h1>
@@ -37,7 +37,7 @@ const VerificationLanding = ({
       </div>
 
       {credential && (
-        <div className="flex justify-end">
+        <div className="row-star-1 flex justify-end">
           <CredentialOverviewCard credential={credential} />
         </div>
       )}
