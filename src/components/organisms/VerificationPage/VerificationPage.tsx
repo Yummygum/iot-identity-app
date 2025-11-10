@@ -2,9 +2,8 @@ import React from 'react'
 
 import ProgressCircle from '@/components/atoms/ProgressCircle/ProgressCircle'
 import CredentialChecks from '@/components/molecules/CredentialChecks/CredentialChecks'
-import CredentialDetailsCard from '@/components/molecules/CredentialDetailsCard/CredentialDetailsCard'
 import CredentialHeading from '@/components/molecules/CredentialHeading/CredentialHeading'
-import IssuerInfoCard from '@/components/molecules/IssuerInfoCard/IssuerInfoCard'
+import DetailCards from '@/components/molecules/DetailCard/DetailCards'
 import {
   TCredential,
   TVerificationResult
@@ -25,7 +24,7 @@ const VerificationPage = ({ credential, checks }: IVerificationPageProps) => {
           <CredentialChecks checks={checks} />
         </div>
 
-        <div className="h-full justify-self-end p-4">
+        <div className="h-full w-full justify-self-end p-4 md:w-auto">
           <ProgressCircle
             className="max-h-96"
             gapSize={10}
@@ -36,11 +35,7 @@ const VerificationPage = ({ credential, checks }: IVerificationPageProps) => {
         </div>
       </div>
 
-      <div className="mt-0 grid gap-10 md:grid-cols-2">
-        <CredentialDetailsCard data={credential} />
-
-        <IssuerInfoCard issuer={credential?.issuer} />
-      </div>
+      <DetailCards credential={credential} />
     </>
   )
 }

@@ -1,23 +1,21 @@
-import { AnimatePresence } from 'motion/react'
-import { useState } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 
 import Button from '@/components/atoms/Button/Button'
 import Card from '@/components/atoms/Card/Card'
 import Icon from '@/components/atoms/Icon'
-import DetailsModal from '@/components/organisms/DetailsModal/DetailsModal'
 import { TCredential } from '@/lib/schemas/verificationResultSchema'
 
 interface ICredentialDetailsCardProps {
   isLoading?: boolean
   data?: TCredential
+  setOpenModal: Dispatch<SetStateAction<'issuer' | 'credential' | null>>
 }
 
 const CredentialDetailsCard = ({
   data,
-  isLoading
+  isLoading,
+  setOpenModal
 }: ICredentialDetailsCardProps) => {
-  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false)
-
   if (isLoading) {
     return null
   }
@@ -46,7 +44,7 @@ const CredentialDetailsCard = ({
 
             <Button
               className="flex items-center justify-between"
-              onClick={() => setIsDetailsModalOpen(true)}
+              onClick={() => setOpenModal('credential')}
             >
               <span>See more details</span>
               <Icon height={24} name="arrowRight" width={24} />
@@ -58,15 +56,6 @@ const CredentialDetailsCard = ({
           </p>
         )}
       </Card>
-
-      <AnimatePresence>
-        {isDetailsModalOpen && data && (
-          <DetailsModal
-            credential={data}
-            setIsModalOpen={setIsDetailsModalOpen}
-          />
-        )}
-      </AnimatePresence>
     </section>
   )
 }

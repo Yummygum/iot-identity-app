@@ -1,14 +1,14 @@
-import ExclamationMark from '@/components/atoms/Icon/icons/exclamation-mark'
-
 import ArrowRight from './icons/arrow-right'
 import ArrowRightUp from './icons/arrow-right-up'
 import Calendar from './icons/calendar'
 import CaretDoubleRight from './icons/caret-double-right'
 import Check from './icons/check'
 import DottedCircle from './icons/dotted-circle'
+import ExclamationMark from './icons/exclamation-mark'
 import IdentificationCard from './icons/identification-card'
 import MapPin from './icons/map-pin'
 import SealCheck from './icons/seal-check'
+import ToggleSidebar from './icons/toggle-sidebar'
 import User from './icons/user'
 
 // Types
@@ -34,5 +34,6 @@ export const iconComponents = {
   identificationCard: IdentificationCard,
   user: User,
   sealCheck: SealCheck,
-  exclamationMark: ExclamationMark
+  exclamationMark: ExclamationMark,
+  toggleSidebar: ToggleSidebar
 }

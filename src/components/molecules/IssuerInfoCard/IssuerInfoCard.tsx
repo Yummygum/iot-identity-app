@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react'
+
 import Button from '@/components/atoms/Button/Button'
 import Card from '@/components/atoms/Card/Card'
 import Icon from '@/components/atoms/Icon'
@@ -5,9 +7,10 @@ import { TCredential } from '@/lib/schemas/verificationResultSchema'
 
 interface IIssuerInfoCardProps {
   issuer: TCredential['issuer']
+  setOpenModal: Dispatch<SetStateAction<'issuer' | 'credential' | null>>
 }
 
-const IssuerInfoCard = ({ issuer }: IIssuerInfoCardProps) => {
+const IssuerInfoCard = ({ issuer, setOpenModal }: IIssuerInfoCardProps) => {
   return (
     <section className="h-full">
       <Card
@@ -26,7 +29,10 @@ const IssuerInfoCard = ({ issuer }: IIssuerInfoCardProps) => {
             <p>Issuer • {issuer.name}</p>
           </div>
 
-          <Button className="mt-auto flex items-center justify-between">
+          <Button
+            className="mt-auto flex items-center justify-between"
+            onClick={() => setOpenModal('issuer')}
+          >
             <span>See more details</span>
             <Icon height={24} name="arrowRight" width={24} />
           </Button>

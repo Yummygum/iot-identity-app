@@ -1,5 +1,18 @@
 import z from 'zod'
 
+const certificationSchema = z.object({
+  name: z.string().min(1, 'certification name cannot be empty'),
+  url: z.url('certification url must be a valid URL'),
+  description: z.string().min(1, 'certification description cannot be empty'),
+  expiresAt: z.iso.datetime().pipe(z.coerce.date()).optional()
+})
+
+const trustEcosystemSchema = z.object({
+  name: z.string().min(1, 'trust ecosystem name cannot be empty'),
+  owner: z.string().min(1, 'trust ecosystem owner cannot be empty'),
+  membersAmount: z.number().min(1, 'members amount must be at least 1')
+})
+
 export const credentialSchema = z.object({
   name: z.string().min(1, 'name cannot be empty'),
   type: z.string().optional(),
@@ -9,10 +22,14 @@ export const credentialSchema = z.object({
   issuer: z.object({
     name: z.string().min(1, 'issuer name cannot be empty'),
     url: z.url('issuer url must be a valid URL').optional(),
+    logoUrl: z.url().optional(),
     colors: z.object({
       primary: z.string().min(1, 'primary color cannot be empty').optional(),
       secondary: z.string().optional()
-    })
+    }),
+    description: z.string().optional(),
+    certifications: z.array(certificationSchema),
+    trustEcosystems: z.array(trustEcosystemSchema)
   }),
   issuanceDate: z.string().refine((date) => !isNaN(Date.parse(date)), {
     message: 'Invalid date format'
