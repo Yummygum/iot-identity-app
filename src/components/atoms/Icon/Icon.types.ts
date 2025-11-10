@@ -6,6 +6,8 @@ import Check from './icons/check'
 import DottedCircle from './icons/dotted-circle'
 import IdentificationCard from './icons/identification-card'
 import MapPin from './icons/map-pin'
+import SealCheck from './icons/seal-check'
+import User from './icons/user'
 
 // Types
 export enum IconRotate {
@@ -27,5 +29,7 @@ export const iconComponents = {
   caretDoubleRight: CaretDoubleRight,
   calendar: Calendar,
   mapPin: MapPin,
-  identificationCard: IdentificationCard
+  identificationCard: IdentificationCard,
+  user: User,
+  sealCheck: SealCheck
 }

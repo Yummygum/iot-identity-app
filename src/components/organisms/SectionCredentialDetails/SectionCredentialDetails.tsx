@@ -23,20 +23,26 @@ const SectionCredentialDetails = ({
   }
 
   return (
-    <section>
-      <Card title="Credential details">
+    <section className="h-full">
+      <Card
+        className="flex h-full flex-col"
+        contentClassName="grow"
+        title="Credential details"
+      >
         {data ? (
-          <div className="text-foreground/40 flex flex-col gap-6 text-sm">
-            <p>
-              Reviewing these details helps you understand what the credential
-              stands for, who it was awarded to, and under what conditions it
-              remains valid.
-            </p>
+          <div className="flex h-full flex-col justify-between gap-6 text-sm">
+            <div className="text-foreground/40 flex flex-col gap-6">
+              <p>
+                Reviewing these details helps you understand what the credential
+                stands for, who it was awarded to, and under what conditions it
+                remains valid.
+              </p>
 
-            <p>
-              {data.type ? `${data.type} • ` : ''}
-              {data.name}
-            </p>
+              <p>
+                {data.type ? `${data.type} • ` : ''}
+                {data.name}
+              </p>
+            </div>
 
             <Button
               className="flex items-center justify-between"

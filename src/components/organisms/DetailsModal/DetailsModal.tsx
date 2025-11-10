@@ -1,8 +1,8 @@
 import { motion } from 'motion/react'
 import { Dispatch, SetStateAction } from 'react'
 
-import Card from '@/components/atoms/Card/Card'
 import Icon from '@/components/atoms/Icon'
+import InfoItem from '@/components/molecules/InfoItem/InfoItem'
 import DegreeTable from '@/components/organisms/DegreeTable/DegreeTable'
 import { TCredential } from '@/lib/schemas/verificationResultSchema'
 
@@ -46,29 +46,47 @@ const DetailsModal = ({ credential, setIsModalOpen }: IDetailsModalProps) => {
         </header>
 
         <div className="max-h-full overflow-y-auto p-6 md:p-8">
-          <div className="mb-16">
-            <h2 className="mb-2 text-3xl font-medium">{credential.type}</h2>
+          <h2 className="mb-2 text-3xl font-medium">{credential.type}</h2>
 
-            <p className="text-foreground/60 mb-8">{credential.name}</p>
+          <p className="text-foreground/60 mb-8">
+            {credential.type}: {credential.name}
+          </p>
 
-            <div className="grid gap-2 md:grid-cols-2">
-              <div className="flex items-center gap-3">
-                <Card className="flex h-8 w-8 items-center justify-center rounded-sm p-0">
-                  <Icon name="calendar" />
-                </Card>
-                <span className="text-foreground/60">2021 - 2025</span>
-              </div>
+          <div className="grid gap-2 md:grid-cols-3">
+            <InfoItem
+              iconName="user"
+              title={credential.issuedTo}
+              value={credential.dateOfBirth.toLocaleDateString()}
+            />
 
-              <div className="flex items-center gap-3">
-                <Card className="flex h-8 w-8 items-center justify-center rounded-sm p-0">
-                  <Icon name="mapPin" />
-                </Card>
-                <span className="text-foreground/60">
-                  Hogeschool van Amsterdam
-                </span>
-              </div>
-            </div>
+            <InfoItem
+              iconName="sealCheck"
+              title="Valid"
+              value={credential.expiryDate.toLocaleDateString()}
+            />
+
+            <InfoItem
+              iconName="mapPin"
+              isLink
+              title={credential.issuer.name}
+              value={credential.issuer.url}
+            />
           </div>
+
+          {credential.description && (
+            <>
+              <hr className="border-foreground/5 my-12" />
+
+              <div>
+                <h2 className="mb-2 font-medium">Description</h2>
+                <p className="text-foreground/70 whitespace-pre-wrap">
+                  {credential.description}
+                </p>
+              </div>
+            </>
+          )}
+
+          <hr className="border-foreground/5 my-12" />
 
           <DegreeTable />
         </div>

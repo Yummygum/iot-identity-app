@@ -45,8 +45,12 @@ export async function POST() {
         issuedTo: 'John Doe',
         type: "Bachelor's Degree",
         name: 'HBO Bouwkunde - Civil Engineering',
+        description: `A bachelor in Bouwkunde (Architecture / Building Engineering) combines creativity and technical expertise to design and realize the built environment. Students learn to translate spatial and structural concepts into functional, sustainable, and aesthetically pleasing designs. 
+        
+        The program covers architecture, construction technology, materials, and urban planning, preparing graduates to collaborate with engineers, designers, and contractors on projects that shape the cities of tomorrow.`,
         issuer: {
           name: 'EVC Nederland',
+          url: 'https://evc-nederland.nl/',
           colors: {
             primary: randomColor
           }
