@@ -11,8 +11,10 @@ const CredentialHeading = ({ credential }: ICredentialHeadingProps) => {
     <header className="pb-16">
       {credential.type ? (
         <>
-          <h1 className="mb-6 text-5xl font-medium">{credential.name}</h1>
-          <h2 className="text-foreground/70 text-xl">
+          <h1 className="mb-6 text-3xl font-medium md:text-5xl">
+            {credential.name}
+          </h1>
+          <h2 className="text-foreground/70 text-lg md:text-xl">
             {credential.issuedTo}{' '}
             <span className="text-foreground/50">
               • {credential.issuer.name}

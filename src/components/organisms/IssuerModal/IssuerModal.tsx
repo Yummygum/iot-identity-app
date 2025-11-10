@@ -84,7 +84,7 @@ const IssuerModal = ({
                   )}
                 </div>
 
-                <div className="text-foreground/50 flex justify-between text-sm">
+                <div className="text-foreground/50 justify-between text-sm md:flex">
                   {certification.description && (
                     <p>{certification.description}</p>
                   )}
@@ -114,7 +114,7 @@ const IssuerModal = ({
           <div>
             {issuer.trustEcosystems.map((trustEcosystem, index) => (
               <div
-                className="flex items-center justify-between gap-2 px-2 py-5"
+                className="items-center justify-between gap-2 px-2 py-5 md:flex"
                 key={index}
               >
                 <div className="flex flex-col gap-2">

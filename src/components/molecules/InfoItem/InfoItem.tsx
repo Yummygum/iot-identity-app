@@ -20,7 +20,13 @@ const InfoItem = ({ title, value, iconName, isLink }: IInfoItemProps) => {
         <span className="font-medium text-white">{title}</span>
 
         <span className="text-foreground/50 truncate text-xs">
-          {isLink ? <a href={value}>{value}</a> : value}
+          {isLink ? (
+            <a href={value} rel="noopener noreferrer" target="_blank">
+              {value}
+            </a>
+          ) : (
+            value
+          )}
         </span>
       </div>
     </div>

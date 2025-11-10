@@ -16,7 +16,7 @@ const LandingPage = ({ credential, setCurrentScreen }: ILandingPageProps) => {
       <LandingHeading setCurrentScreen={setCurrentScreen} />
 
       {credential && (
-        <div className="flex justify-end">
+        <div className="flex justify-center md:justify-end">
           <CredentialPreview credential={credential} />
         </div>
       )}

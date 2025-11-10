@@ -117,6 +117,17 @@ const VerificationDashboard = () => {
           />
         </div>
       )}
+
+      {currentScreen === VerificationScreenState.RESULTS && (
+        <div className="fade-in absolute top-0 right-0 -z-10">
+          <Image
+            alt=""
+            height={700}
+            src={'/img/background-texture-2.png'}
+            width={700}
+          />
+        </div>
+      )}
     </div>
   )
 }

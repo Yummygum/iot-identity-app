@@ -49,7 +49,7 @@ const Modal = ({
           duration: 0.2
         }}
       >
-        <header className="top-0 flex items-center justify-between border-b border-white/8 bg-white/4 py-4 pr-3 md:pl-10">
+        <header className="top-0 flex items-center justify-between border-b border-white/8 bg-white/4 px-3 py-4 md:pl-10">
           <button
             className="flex aspect-square h-8 cursor-pointer items-center justify-center rounded-sm hover:bg-white/7"
             onClick={onClose}

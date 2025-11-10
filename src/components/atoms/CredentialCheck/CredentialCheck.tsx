@@ -17,7 +17,7 @@ const CredentialCheck = ({ check }: ICredentialCheckProps) => {
           status={check.status === 'passed' ? 'success' : 'failed'}
         />
 
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col md:flex-row md:items-center md:gap-4">
           <p className="font-medium">{check.name}</p>
 
           {check.error && (

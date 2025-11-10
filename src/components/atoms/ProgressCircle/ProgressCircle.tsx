@@ -4,7 +4,7 @@ import { twMerge } from 'tailwind-merge'
 
 import Icon from '@/components/atoms/Icon'
 
-const ANIMATION_DURATION = 0.5
+const ANIMATION_DURATION = 0.4
 
 interface IStatusCircleProps extends SVGProps<SVGSVGElement> {
   size: number
@@ -65,15 +65,16 @@ const ProgressCircle = ({
           return (
             <motion.circle
               animate={{
-                strokeDasharray: `${filledArc} ${circumference - filledArc}`
+                strokeDasharray: `${filledArc} ${circumference - filledArc}`,
+                stroke: passed ? 'var(--color-primary)' : 'var(--color-red-500)'
               }}
-              className={twMerge(
-                'fill-transparent stroke-current transition-colors',
-                passed ? 'text-(--color-primary)' : 'text-red-500'
-              )}
+              className={twMerge('fill-transparent')}
               cx={50 / 2}
               cy={50 / 2}
-              initial={{ strokeDasharray: `0 ${circumference}` }}
+              initial={{
+                strokeDasharray: `0 ${circumference}`,
+                stroke: 'rgba(255,255,255,0)'
+              }}
               key={index}
               r={radius}
               strokeDasharray={`${filledArc} ${circumference - filledArc}`}
@@ -82,7 +83,7 @@ const ProgressCircle = ({
               strokeWidth={strokeWidth}
               transition={{
                 duration: ANIMATION_DURATION,
-                delay: 0.1,
+                delay: index * (ANIMATION_DURATION + 0),
                 ease: 'easeInOut'
               }}
             />
@@ -115,6 +116,53 @@ const ProgressCircle = ({
               cy={50 / 2}
               key={index}
               r={radius}
+              strokeDasharray={`${filledArc} ${circumference - filledArc}`}
+              strokeDashoffset={-offset}
+              strokeLinecap="round"
+              strokeWidth={strokeWidth}
+            />
+          )
+        })}
+      </svg>
+
+      <svg
+        aria-label="Status Circle Shine"
+        className={'pointer-events-none absolute top-0 left-0 h-full w-full'}
+        height={50}
+        style={{
+          rotate: `${rotation}deg`,
+          transformOrigin: 'center'
+        }}
+        viewBox={`0 0 50 50`}
+        width={50}
+        {...props}
+      >
+        <defs>
+          <linearGradient
+            gradientTransform="rotate(125 0.5 0.5)"
+            id="shineGradient"
+            x1="0%"
+            x2="100%"
+            y1="0%"
+            y2="0%"
+          >
+            <stop offset="0%" stopColor="rgba(255,255,255,0.1)" />
+            <stop offset="100%" stopColor="rgba(0,0,0,0.3)" />
+          </linearGradient>
+        </defs>
+
+        {normalizedStatuses.map((_, index) => {
+          const startAngle = index * segmentAngle
+          const offset = (circumference * startAngle) / 360
+
+          return (
+            <circle
+              cx={50 / 2}
+              cy={50 / 2}
+              fill="transparent"
+              key={index}
+              r={radius}
+              stroke="url(#shineGradient)"
               strokeDasharray={`${filledArc} ${circumference - filledArc}`}
               strokeDashoffset={-offset}
               strokeLinecap="round"
