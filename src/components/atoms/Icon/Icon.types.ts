@@ -1,3 +1,5 @@
+import ExclamationMark from '@/components/atoms/Icon/icons/exclamation-mark'
+
 import ArrowRight from './icons/arrow-right'
 import ArrowRightUp from './icons/arrow-right-up'
 import Calendar from './icons/calendar'
@@ -31,5 +33,6 @@ export const iconComponents = {
   mapPin: MapPin,
   identificationCard: IdentificationCard,
   user: User,
-  sealCheck: SealCheck
+  sealCheck: SealCheck,
+  exclamationMark: ExclamationMark
 }

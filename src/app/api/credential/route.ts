@@ -1,7 +1,11 @@
 export async function POST() {
   await new Promise((resolve) => setTimeout(resolve, 0))
 
-  const randomColors = ['#00C785', '#0079C7', '#C76A00']
+  const randomColors: { primary: string; secondary?: string }[] = [
+    { primary: '#00C785' },
+    { primary: '#0079C7', secondary: '#EBA630' },
+    { primary: '#C76A00' }
+  ]
 
   const randomColor =
     randomColors[Math.floor(Math.random() * randomColors.length)]
@@ -16,7 +20,8 @@ export async function POST() {
         name: 'EVC Nederland',
         url: 'https://evc-nederland.nl/',
         colors: {
-          primary: randomColor
+          primary: randomColor.primary,
+          secondary: randomColor.secondary
         }
       },
       issuanceDate: new Date(),

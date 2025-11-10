@@ -4,13 +4,9 @@ import Image from 'next/image'
 import { CSSProperties, useEffect, useState } from 'react'
 import { ZodError } from 'zod'
 
-import ProgressCircle from '@/components/atoms/ProgressCircle/ProgressCircle'
 import WhiteLabelGradients from '@/components/molecules/WhiteLabelGradients/WhiteLabelGradients'
-import SectionCredentialDetails from '@/components/organisms/SectionCredentialDetails/SectionCredentialDetails'
-import SectionIssuerInfo from '@/components/organisms/SectionIssuerInfo/SectionIssuerInfo'
-import SectionVerificationChecks from '@/components/organisms/SectionVerificationChecks/SectionVerificationChecks'
-import SectionVerificationHeader from '@/components/organisms/SectionVerificationHeader/SectionVerificationHeader'
-import VerificationLanding from '@/components/organisms/VerificationLanding/VerificationLanding'
+import LandingPage from '@/components/organisms/LandingPage/LandingPage'
+import VerificationPage from '@/components/organisms/VerificationPage/VerificationPage'
 import {
   credentialSchema,
   TCredential,
@@ -24,7 +20,6 @@ export enum VerificationScreenState {
 }
 
 const VerificationDashboard = () => {
-  const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [currentScreen, setCurrentScreen] = useState<VerificationScreenState>(
     VerificationScreenState.LANDING
@@ -76,10 +71,12 @@ const VerificationDashboard = () => {
   }, [])
 
   useEffect(() => {
-    if (checks !== null || error !== null) {
-      setIsLoading(false)
+    if (!error) {
+      return
     }
-  }, [checks, error])
+
+    console.error('Verification Error:', error)
+  }, [error])
 
   return (
     <div className="relative flex min-h-screen">
@@ -98,45 +95,12 @@ const VerificationDashboard = () => {
           } as CSSProperties
         }
       >
-        {currentScreen === VerificationScreenState.RESULTS && credential ? (
-          <>
-            <div className="grid items-center gap-16 py-16 md:grid-cols-2">
-              <div>
-                {credential && (
-                  <SectionVerificationHeader credential={credential} />
-                )}
-
-                <SectionVerificationChecks
-                  checks={checks?.checks ?? null}
-                  isLoading={isLoading}
-                />
-              </div>
-
-              {checks && (
-                <div className="h-full justify-self-end p-4">
-                  <ProgressCircle
-                    className="max-h-96"
-                    gapSize={10}
-                    size={500}
-                    statuses={checks.checks.map(
-                      (check) => check.status === 'passed'
-                    )}
-                    strokeWidth={1.5}
-                  />
-                </div>
-              )}
-            </div>
-
-            <div className="mt-0 grid gap-10 md:grid-cols-2">
-              {credential && <SectionCredentialDetails data={credential} />}
-
-              {credential?.issuer && (
-                <SectionIssuerInfo issuer={credential?.issuer} />
-              )}
-            </div>
-          </>
+        {currentScreen === VerificationScreenState.RESULTS &&
+        credential &&
+        checks ? (
+          <VerificationPage checks={checks.checks} credential={credential} />
         ) : (
-          <VerificationLanding
+          <LandingPage
             credential={credential}
             setCurrentScreen={setCurrentScreen}
           />

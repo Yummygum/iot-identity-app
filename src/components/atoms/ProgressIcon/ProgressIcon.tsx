@@ -1,16 +1,10 @@
-import { XIcon } from 'lucide-react'
-
 import Icon from '@/components/atoms/Icon'
 
-const ICON_SIZE = 20
-
-interface IVerificationProgressIconProps {
+interface IProgressIconProps {
   status: 'not_started' | 'in_progress' | 'success' | 'failed'
 }
 
-const VerificationProgressIcon = ({
-  status
-}: IVerificationProgressIconProps) => {
+const ProgressIcon = ({ status }: IProgressIconProps) => {
   const getVerificationIcon = () => {
     switch (status) {
       case 'not_started':
@@ -31,8 +25,8 @@ const VerificationProgressIcon = ({
         )
       case 'failed':
         return (
-          <div className="bg-red flex h-full w-full items-center justify-center rounded-full">
-            <XIcon height={ICON_SIZE} width={ICON_SIZE} />
+          <div className="bg-red from transparent flex h-full w-full items-center justify-center rounded-full bg-linear-to-bl to-white/20">
+            <Icon name="exclamationMark" />
           </div>
         )
       default:
@@ -47,4 +41,4 @@ const VerificationProgressIcon = ({
   )
 }
 
-export default VerificationProgressIcon
+export default ProgressIcon

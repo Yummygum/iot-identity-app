@@ -4,8 +4,7 @@ import { twMerge } from 'tailwind-merge'
 
 import Icon from '@/components/atoms/Icon'
 
-const ANIMATION_DURATION = 0.3
-const ANIMATION_DELAY_BETWEEN_SEGMENTS = 0.1
+const ANIMATION_DURATION = 0.5
 
 interface IStatusCircleProps extends SVGProps<SVGSVGElement> {
   size: number
@@ -83,9 +82,7 @@ const ProgressCircle = ({
               strokeWidth={strokeWidth}
               transition={{
                 duration: ANIMATION_DURATION,
-                delay:
-                  index *
-                  (ANIMATION_DURATION + ANIMATION_DELAY_BETWEEN_SEGMENTS),
+                delay: 0.1,
                 ease: 'easeInOut'
               }}
             />

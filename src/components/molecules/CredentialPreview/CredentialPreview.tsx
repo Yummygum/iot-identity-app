@@ -2,14 +2,13 @@ import { motion } from 'motion/react'
 
 import Card from '@/components/atoms/Card/Card'
 import { TCredential } from '@/lib/schemas/verificationResultSchema'
+import forceRepaint from '@/utils/forceRepaint'
 
-interface ICredentialOverviewCardProps {
+interface ICredentialPreviewProps {
   credential: TCredential
 }
 
-const CredentialOverviewCard = ({
-  credential
-}: ICredentialOverviewCardProps) => {
+const CredentialPreview = ({ credential }: ICredentialPreviewProps) => {
   return (
     <div className="fade-in fast relative w-full max-w-md [animation-delay:700ms]">
       {credential.verifier?.logoUrl && (
@@ -17,6 +16,7 @@ const CredentialOverviewCard = ({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           className="absolute top-0 right-0 translate-x-8 -translate-y-8"
           initial={{ opacity: 0, scale: 0.5, y: 20 }}
+          onAnimationComplete={forceRepaint}
           transition={{ duration: 0.2, delay: 1.3 }}
         >
           <Card
@@ -37,9 +37,10 @@ const CredentialOverviewCard = ({
       <motion.div
         animate={{ opacity: 1, y: 0 }}
         initial={{ opacity: 0, y: 20 }}
+        onAnimationComplete={forceRepaint}
         transition={{ delay: 0.8, duration: 0.3 }}
       >
-        <Card className="" title="Bachelor's degree">
+        <Card className="" title={credential.type}>
           <div className="text-foreground/60">
             <p className="mb-6">{credential?.name}</p>
 
@@ -51,4 +52,4 @@ const CredentialOverviewCard = ({
   )
 }
 
-export default CredentialOverviewCard
+export default CredentialPreview

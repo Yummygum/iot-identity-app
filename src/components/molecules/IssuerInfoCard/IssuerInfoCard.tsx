@@ -3,11 +3,11 @@ import Card from '@/components/atoms/Card/Card'
 import Icon from '@/components/atoms/Icon'
 import { TCredential } from '@/lib/schemas/verificationResultSchema'
 
-interface ISectionIssuerInfoProps {
+interface IIssuerInfoCardProps {
   issuer: TCredential['issuer']
 }
 
-const SectionIssuerInfo = ({ issuer }: ISectionIssuerInfoProps) => {
+const IssuerInfoCard = ({ issuer }: IIssuerInfoCardProps) => {
   return (
     <section className="h-full">
       <Card
@@ -36,4 +36,4 @@ const SectionIssuerInfo = ({ issuer }: ISectionIssuerInfoProps) => {
   )
 }
 
-export default SectionIssuerInfo
+export default IssuerInfoCard

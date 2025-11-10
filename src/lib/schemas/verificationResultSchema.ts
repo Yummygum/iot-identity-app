@@ -30,7 +30,8 @@ export const credentialSchema = z.object({
 const checkSchema = z.discriminatedUnion('status', [
   z.object({
     name: z.string().min(1, 'check name cannot be empty'),
-    status: z.literal('passed')
+    status: z.literal('passed'),
+    error: z.undefined()
   }),
   z.object({
     name: z.string().min(1, 'check name cannot be empty'),

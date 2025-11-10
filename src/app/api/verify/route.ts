@@ -5,31 +5,31 @@ export async function POST() {
 
   const errorCodes: { code: string; shouldShowCredential: boolean }[] = [
     {
-      code: 'INVALID_SIGNATURE',
+      code: 'Signature is invalid',
       shouldShowCredential: false
     },
     {
-      code: 'EXPIRED_CREDENTIAL',
+      code: 'Credential has expired',
       shouldShowCredential: true
     },
     {
-      code: 'REVOKED_CREDENTIAL',
+      code: 'Credential has been revoked',
       shouldShowCredential: true
     },
     {
-      code: 'SUSPENDED_CREDENTIAL',
+      code: 'Credential has been suspended',
       shouldShowCredential: true
     },
     {
-      code: 'NOT_VALID_YET',
+      code: 'Credential is not valid yet',
       shouldShowCredential: true
     },
     {
-      code: 'ORGANIZATION_CANT_BE_VERIFIED',
+      code: 'Organization cannot be verified',
       shouldShowCredential: true
     },
     {
-      code: 'SERVICE_UNAVAILABLE',
+      code: 'Service is unavailable',
       shouldShowCredential: false
     }
   ]
@@ -99,7 +99,7 @@ export async function POST() {
       {
         name: 'Credential Authentication',
         status: randomReason.shouldShowCredential ? 'passed' : 'failed',
-        error: randomReason.code
+        error: randomReason.shouldShowCredential ? undefined : randomReason.code
       },
       {
         name: 'Credential Status',

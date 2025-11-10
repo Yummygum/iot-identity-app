@@ -7,15 +7,15 @@ import Icon from '@/components/atoms/Icon'
 import DetailsModal from '@/components/organisms/DetailsModal/DetailsModal'
 import { TCredential } from '@/lib/schemas/verificationResultSchema'
 
-interface ISectionCredentialDetailsProps {
+interface ICredentialDetailsCardProps {
   isLoading?: boolean
   data?: TCredential
 }
 
-const SectionCredentialDetails = ({
+const CredentialDetailsCard = ({
   data,
   isLoading
-}: ISectionCredentialDetailsProps) => {
+}: ICredentialDetailsCardProps) => {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false)
 
   if (isLoading) {
@@ -27,7 +27,7 @@ const SectionCredentialDetails = ({
       <Card
         className="flex h-full flex-col"
         contentClassName="grow"
-        title="Credential details"
+        title="Credential Details"
       >
         {data ? (
           <div className="flex h-full flex-col justify-between gap-6 text-sm">
@@ -71,4 +71,4 @@ const SectionCredentialDetails = ({
   )
 }
 
-export default SectionCredentialDetails
+export default CredentialDetailsCard
