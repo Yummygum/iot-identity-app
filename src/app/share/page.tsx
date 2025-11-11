@@ -1,0 +1,68 @@
+import Image from 'next/image'
+import { notFound } from 'next/navigation'
+import React from 'react'
+import QRCode from 'react-qr-code'
+
+import Card from '@/components/atoms/Card/Card'
+import WhiteLabelGradients from '@/components/molecules/WhiteLabelGradients/WhiteLabelGradients'
+
+const STEPS = [
+  'Download the UniMe app via the Google Play Store or the Apple Store.',
+  'Create an account or login with your existing account.',
+  'Scan the QR code and  start the verification.'
+]
+
+const SharePage = async ({
+  searchParams
+}: {
+  searchParams: Promise<{ url: string }>
+}) => {
+  const { url } = await searchParams
+
+  if (!url) {
+    notFound()
+  }
+
+  return (
+    <div className="h-full w-full">
+      <WhiteLabelGradients primaryColor="#0079C7" secondaryColor="#EBA630" />
+
+      <div className="relative mx-auto flex h-full min-h-screen w-full max-w-7xl flex-col items-center justify-center">
+        <Image
+          alt=""
+          className="object-cover"
+          fill
+          src={'/img/background-texture-3.png'}
+        />
+
+        <div className="mt-32 grow lg:mt-0 lg:grow-0">
+          <Card className="w-fit p-6 backdrop-blur-3xl">
+            <QRCode
+              bgColor={'transparent'}
+              className="w-full"
+              fgColor="white"
+              value={url}
+            />
+          </Card>
+        </div>
+
+        <div className="bottom-0 flex w-full flex-col gap-10 p-8 lg:absolute">
+          <div className="mx-auto flex w-fit flex-col justify-between gap-8 lg:w-full lg:flex-row">
+            {STEPS.map((step, index) => (
+              <div className="flex max-w-64 flex-col gap-2" key={index}>
+                <h3 className="font-semibold text-white">Step {index + 1}</h3>
+                <p className="text-foreground/70 text-sm">{step}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-foreground/30 py-6 text-center text-xs">
+            <p>UniTrust 2025 Impierce Technologies B.V.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default SharePage
