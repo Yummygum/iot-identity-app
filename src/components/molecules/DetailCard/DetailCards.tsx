@@ -1,4 +1,3 @@
-import { AnimatePresence } from 'motion/react'
 import { useState } from 'react'
 
 import CredentialDetailsCard from '@/components/molecules/CredentialDetailsCard/CredentialDetailsCard'
@@ -22,21 +21,19 @@ const DetailCards = ({ credential }: IDetailCardsProps) => {
 
       <IssuerInfoCard issuer={credential.issuer} setOpenModal={setOpenModal} />
 
-      <AnimatePresence mode="wait">
-        <IssuerModal
-          issuer={credential.issuer}
-          key="issuer-modal"
-          openModal={openModal}
-          setOpenModal={setOpenModal}
-        />
+      <IssuerModal
+        issuer={credential.issuer}
+        key="issuer-modal"
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+      />
 
-        <DetailsModal
-          credential={credential}
-          key="details-modal"
-          openModal={openModal}
-          setOpenModal={setOpenModal}
-        />
-      </AnimatePresence>
+      <DetailsModal
+        credential={credential}
+        key="details-modal"
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+      />
     </div>
   )
 }

@@ -26,7 +26,12 @@ const IssuerInfoCard = ({ issuer, setOpenModal }: IIssuerInfoCardProps) => {
               establish trust.
             </p>
 
-            <p>Issuer • {issuer.name}</p>
+            <p>
+              <span className="text-white">{issuer.name}</span> •{' '}
+              <a href={issuer.url} target="_blank">
+                {issuer.url}
+              </a>
+            </p>
           </div>
 
           <Button

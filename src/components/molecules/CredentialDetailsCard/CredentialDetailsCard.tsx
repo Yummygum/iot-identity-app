@@ -37,8 +37,13 @@ const CredentialDetailsCard = ({
               </p>
 
               <p>
-                {data.type ? `${data.type} • ` : ''}
-                {data.name}
+                <span className="text-foreground">{data.issuedTo}</span> • Valid
+                until{' '}
+                {data.expiryDate.toLocaleDateString('en-US', {
+                  month: 'short',
+                  day: 'numeric',
+                  year: 'numeric'
+                })}
               </p>
             </div>
 
