@@ -1,6 +1,7 @@
-"use client"
+'use client'
 
 import React, { useEffect, useRef } from 'react'
+import 'context-filter-polyfill'
 
 interface WhiteLabelGradientsProps {
   primaryColor: string
@@ -19,7 +20,7 @@ const WhiteLabelGradients: React.FC<WhiteLabelGradientsProps> = ({
   useEffect(() => {
     const canvas = canvasRef.current
     const ctx = canvas?.getContext('2d')
-    
+
     if (!canvas || !ctx) {
       return
     }
@@ -79,7 +80,7 @@ const WhiteLabelGradients: React.FC<WhiteLabelGradientsProps> = ({
   return (
     <div className="absolute inset-0 overflow-hidden">
       <canvas
-        className="absolute inset-0 w-full h-full object-cover fade-in"
+        className="fade-in absolute inset-0 h-full w-full object-cover"
         height={1080}
         ref={canvasRef}
         width={1328}
