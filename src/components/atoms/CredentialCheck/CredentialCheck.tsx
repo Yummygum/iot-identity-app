@@ -1,11 +1,10 @@
 import ProgressIcon from '@/components/atoms/ProgressIcon/ProgressIcon'
 
-interface ICredentialCheckProps {
+export interface ICredentialCheckProps {
   check: {
     status: 'passed' | 'failed'
     name: string
-    error?: string
-    description?: string
+    payload?: string | null
   }
 }
 
@@ -20,8 +19,8 @@ const CredentialCheck = ({ check }: ICredentialCheckProps) => {
         <div className="flex flex-col md:flex-row md:items-center md:gap-4">
           <p className="font-medium">{check.name}</p>
 
-          {check.error && (
-            <span className="text-foreground/50 text-xs">*{check.error}</span>
+          {check.payload && (
+            <span className="text-foreground/50 text-xs">*{check.payload}</span>
           )}
         </div>
       </div>

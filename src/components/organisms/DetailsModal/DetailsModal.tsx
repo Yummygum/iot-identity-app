@@ -7,7 +7,16 @@ import Modal from '@/components/organisms/Modal/Modal'
 import { TCredential } from '@/lib/schemas/verificationResultSchema'
 
 interface IDetailsModalProps {
-  credential: TCredential
+  credential: TCredential & {
+    issuanceDate?: Date
+    expirationDate?: Date
+    issuer?: {
+      name?: string
+    }
+    credentialSubject?: {
+      name?: string
+    }
+  }
   openModal: 'credential' | 'issuer' | null
   setOpenModal: Dispatch<SetStateAction<'credential' | 'issuer' | null>>
 }
@@ -33,20 +42,24 @@ const DetailsModal = ({
     >
       <div className="mb-8">
         <h2 className="mb-2 text-3xl font-medium">{credential.type}</h2>
-        <p className="text-foreground/60">{credential.name}</p>
+        <p className="text-foreground/60">{credential?.name}</p>
       </div>
 
       <div className="grid gap-2 md:grid-cols-3">
-        <InfoItem
-          iconName="user"
-          title={credential.issuedTo}
-          value={credential.dateOfBirth.toLocaleDateString()}
-        />
-        <InfoItem
-          iconName="sealCheck"
-          title="Valid"
-          value={credential.expiryDate.toLocaleDateString()}
-        />
+        {credential.credentialSubject?.name && (
+          <InfoItem
+            iconName="user"
+            title={credential.credentialSubject.name}
+            value={credential.dateOfBirth.toLocaleDateString()}
+          />
+        )}
+        {credential.expirationDate && (
+          <InfoItem
+            iconName="sealCheck"
+            title="Valid"
+            value={credential.expirationDate.toLocaleDateString()}
+          />
+        )}
         <InfoItem
           iconName="mapPin"
           isLink

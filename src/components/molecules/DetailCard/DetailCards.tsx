@@ -7,7 +7,16 @@ import IssuerModal from '@/components/organisms/IssuerModal/IssuerModal'
 import { TCredential } from '@/lib/schemas/verificationResultSchema'
 
 interface IDetailCardsProps {
-  credential: TCredential
+  credential: TCredential & {
+    issuanceDate?: Date
+    expirationDate?: Date
+    issuer?: {
+      name?: string
+    }
+    credentialSubject?: {
+      name?: string
+    }
+  }
 }
 
 const DetailCards = ({ credential }: IDetailCardsProps) => {

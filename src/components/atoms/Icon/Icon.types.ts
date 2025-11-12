@@ -8,6 +8,7 @@ import ExclamationMark from './icons/exclamation-mark'
 import IdentificationCard from './icons/identification-card'
 import MapPin from './icons/map-pin'
 import SealCheck from './icons/seal-check'
+import Spinner from './icons/spinner'
 import ToggleSidebar from './icons/toggle-sidebar'
 import User from './icons/user'
 
@@ -35,5 +36,6 @@ export const iconComponents = {
   user: User,
   sealCheck: SealCheck,
   exclamationMark: ExclamationMark,
-  toggleSidebar: ToggleSidebar
+  toggleSidebar: ToggleSidebar,
+  spinner: Spinner
 }

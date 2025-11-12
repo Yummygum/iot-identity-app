@@ -6,9 +6,13 @@ import { VerificationScreenState } from '@/components/organisms/VerificationDash
 
 interface IVerificationLandingProps {
   setCurrentScreen: Dispatch<SetStateAction<VerificationScreenState>>
+  currentScreen: VerificationScreenState
 }
 
-const LandingHeading = ({ setCurrentScreen }: IVerificationLandingProps) => {
+const LandingHeading = ({
+  setCurrentScreen,
+  currentScreen
+}: IVerificationLandingProps) => {
   return (
     <div className="row-start-2 flex flex-col gap-6 lg:row-auto">
       <h1 className="text-2xl font-medium md:text-6xl">
@@ -22,11 +26,17 @@ const LandingHeading = ({ setCurrentScreen }: IVerificationLandingProps) => {
 
       <Button
         aria-label="Verify Credential"
-        className="mt-6 flex max-w-md items-center justify-between bg-white transition-opacity hover:bg-white/90"
+        className="disabled:hover-bg-white mt-6 flex max-w-md items-center justify-between bg-white transition-opacity hover:bg-white/90 disabled:cursor-not-allowed disabled:bg-white/50"
+        disabled={currentScreen === VerificationScreenState.RESULTS}
         onClick={() => setCurrentScreen(VerificationScreenState.RESULTS)}
       >
         <span>Verify Credential</span>
-        <Icon height={28} name="arrowRight" />
+
+        {currentScreen === VerificationScreenState.RESULTS ? (
+          <Icon height={28} name="spinner" />
+        ) : (
+          <Icon height={28} name="arrowRight" />
+        )}
       </Button>
     </div>
   )

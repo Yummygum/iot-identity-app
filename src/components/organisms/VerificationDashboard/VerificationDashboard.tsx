@@ -24,7 +24,8 @@ const VerificationDashboard = () => {
   const [currentScreen, setCurrentScreen] = useState<VerificationScreenState>(
     VerificationScreenState.LANDING
   )
-  const [checks, setChecks] = useState<TVerificationResult | null>(null)
+  const [verificationData, setVerificationData] =
+    useState<TVerificationResult | null>(null)
   const [credential, setCredential] = useState<TCredential | null>(null)
 
   const fetchCredential = async () => {
@@ -53,7 +54,7 @@ const VerificationDashboard = () => {
 
       const parseRes = verificationResultSchema.parse(data)
 
-      setChecks(parseRes)
+      setVerificationData(parseRes)
     } catch (err) {
       if (err instanceof ZodError) {
         setError('Error verifying credential')
@@ -97,11 +98,15 @@ const VerificationDashboard = () => {
       >
         {currentScreen === VerificationScreenState.RESULTS &&
         credential &&
-        checks ? (
-          <VerificationPage checks={checks.checks} credential={credential} />
+        verificationData ? (
+          <VerificationPage
+            credential={credential}
+            verificationData={verificationData}
+          />
         ) : (
           <LandingPage
             credential={credential}
+            currentScreen={currentScreen}
             setCurrentScreen={setCurrentScreen}
           />
         )}

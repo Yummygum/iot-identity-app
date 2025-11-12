@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { ICredentialCheckProps } from '@/components/atoms/CredentialCheck/CredentialCheck'
 import ProgressCircle from '@/components/atoms/ProgressCircle/ProgressCircle'
 import CredentialChecks from '@/components/molecules/CredentialChecks/CredentialChecks'
 import CredentialHeading from '@/components/molecules/CredentialHeading/CredentialHeading'
@@ -11,15 +12,65 @@ import {
 
 interface IVerificationPageProps {
   credential: TCredential
-  checks: TVerificationResult['checks']
+  verificationData: TVerificationResult
 }
 
-const VerificationPage = ({ credential, checks }: IVerificationPageProps) => {
+const VerificationPage = ({
+  credential,
+  verificationData
+}: IVerificationPageProps) => {
+  const checks: ICredentialCheckProps['check'][] = [
+    {
+      ...verificationData.proof,
+      name: 'Credential Authentication',
+      status: verificationData.proof.status === 'Success' ? 'passed' : 'failed'
+    },
+    {
+      ...verificationData.status,
+      name: 'Credential Status',
+      status: verificationData.status.status === 'Success' ? 'passed' : 'failed'
+    },
+    {
+      ...verificationData.trust_relation,
+      name: 'Ecosystem connection',
+      status:
+        verificationData.trust_relation.status === 'Success'
+          ? 'passed'
+          : 'failed'
+    },
+    {
+      ...verificationData.domain_linkage,
+      name: 'Issuer domain',
+      status:
+        verificationData.domain_linkage.status === 'Success'
+          ? 'passed'
+          : 'failed'
+    },
+    {
+      ...verificationData.linked_vp,
+      name: 'Profile check',
+      status:
+        verificationData.linked_vp.status === 'Success' ? 'passed' : 'failed'
+    }
+  ]
+
   return (
     <>
       <div className="grid items-center gap-16 py-16 md:grid-cols-2">
         <div>
-          <CredentialHeading credential={credential} />
+          <CredentialHeading
+            credential={{
+              ...credential,
+              ...verificationData.credential,
+              type: Array.isArray(verificationData.credential?.type)
+                ? verificationData.credential?.type[0]
+                : undefined,
+              issuer: {
+                ...credential.issuer,
+                ...verificationData.credential?.issuer
+              }
+            }}
+          />
 
           <CredentialChecks checks={checks} />
         </div>
@@ -35,7 +86,21 @@ const VerificationPage = ({ credential, checks }: IVerificationPageProps) => {
         </div>
       </div>
 
-      <DetailCards credential={credential} />
+      {verificationData.credential && (
+        <DetailCards
+          credential={{
+            ...credential,
+            ...verificationData.credential,
+            type: Array.isArray(verificationData.credential?.type)
+              ? verificationData.credential?.type[0]
+              : undefined,
+            issuer: {
+              ...credential.issuer,
+              ...verificationData.credential.issuer
+            }
+          }}
+        />
+      )}
     </>
   )
 }

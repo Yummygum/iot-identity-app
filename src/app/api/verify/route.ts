@@ -1,161 +1,91 @@
-export async function POST() {
-  await new Promise((resolve) => setTimeout(resolve, 0))
-
-  const isValid = Math.random() < 0.5
-
-  const errorCodes: { code: string; shouldShowCredential: boolean }[] = [
-    {
-      code: 'Signature is invalid',
-      shouldShowCredential: false
+const exampleResponses = [
+  {
+    credential: null,
+    proof: {
+      status: 'Success',
+      payload: null
     },
-    {
-      code: 'Credential has expired',
-      shouldShowCredential: true
+    status: {
+      status: 'Success',
+      payload: null
     },
-    {
-      code: 'Credential has been revoked',
-      shouldShowCredential: true
+    trust_relation: {
+      status: 'Success',
+      payload: null
     },
-    {
-      code: 'Credential has been suspended',
-      shouldShowCredential: true
+    linked_vp: {
+      status: 'Success',
+      payload: null
     },
-    {
-      code: 'Credential is not valid yet',
-      shouldShowCredential: true
-    },
-    {
-      code: 'Organization cannot be verified',
-      shouldShowCredential: true
-    },
-    {
-      code: 'Service is unavailable',
-      shouldShowCredential: false
+    domain_linkage: {
+      status: 'Unknown',
+      payload: 'Could not fetch domain linkage did-configuration file'
     }
-  ]
-
-  const randomColors = ['#00C785', '#0079C7', '#C76A00']
-
-  const randomColor =
-    randomColors[Math.floor(Math.random() * randomColors.length)]
-
-  if (isValid) {
-    return Response.json({
-      credential: {
-        issuedTo: 'Jane Doe',
-        type: "Bachelor's Degree",
-        name: 'HBO Bouwkunde - Civil Engineering',
-        description: `A bachelor in Bouwkunde (Architecture / Building Engineering) combines creativity and technical expertise to design and realize the built environment. Students learn to translate spatial and structural concepts into functional, sustainable, and aesthetically pleasing designs. 
-        
-        The program covers architecture, construction technology, materials, and urban planning, preparing graduates to collaborate with engineers, designers, and contractors on projects that shape the cities of tomorrow.`,
-        issuer: {
-          name: 'EVC Nederland',
-          url: 'https://evc-nederland.nl/',
-          logoUrl:
-            'https://media.licdn.com/dms/image/v2/D4E0BAQGsFiSGHpnqtQ/company-logo_200_200/company-logo_200_200/0/1704200938642/evc_nederland_logo?e=2147483647&v=beta&t=GwJ7Dsq_XAR4GfAZiPa5LbvxN0cMT7uInnOgxhezTsY',
-          colors: {
-            primary: randomColor
-          },
-          description: `At EVC Nederland, we believe people are worth more than just a diploma. A lot of talent goes untapped because experience and skills are not visible or formally recognized. We map out and validate your abilities and competencies through an EVC program or Skills Passport.`,
-          certifications: [
-            {
-              name: 'ISO 27001 Certified',
-              url: 'https://www.iso.org/',
-              description: 'International Organization for Standardization',
-              expiresAt: new Date('2026-10-07')
-            },
-            {
-              name: 'ISO 27001 Certified',
-              url: 'https://www.iso.org/',
-              description: 'International Organization for Standardization',
-              expiresAt: new Date('2026-10-07')
-            },
-            {
-              name: 'ISO 27001 Certified',
-              url: 'https://www.iso.org/',
-              description: 'International Organization for Standardization',
-              expiresAt: new Date('2026-10-07')
-            }
-          ],
-          trustEcosystems: [
-            {
-              name: 'Dutch Organizations for Universities',
-              owner: 'International Organization for Standardization',
-              membersAmount: 24
-            },
-            {
-              name: 'Dutch Organizations for Universities',
-              owner: 'International Organization for Standardization',
-              membersAmount: 24
-            }
+  },
+  {
+    credential: {
+      '@context': ['https://www.w3.org/2018/credentials/v1'],
+      id: 'https://acme.example.org/1a2b3c4d5e6f',
+      type: ['VerifiableCredential'],
+      credentialSubject: {
+        id: 'random-id',
+        certificaat: {
+          type: 'ACMECorpCredential',
+          certificeringsDatum: '2024-06-26',
+          geldigheidsPeriode: '1 jaar',
+          garanties: [
+            'Het bedrijf is echt en bereikbaar.',
+            'Voldoet aan de Thuiswinkel Algemene Voorwaarden.',
+            '14 dagen bedenktijd.',
+            'Veilige betaalmethoden.',
+            'Duidelijke product/servicebeschrijvingen.',
+            'Transparant bestelproces.',
+            'Duidelijke prijzen.',
+            'Veilige betaalomgeving.',
+            'Veilige omgang met persoonlijke gegevens.',
+            'Effectieve klachtenafhandeling en onafhankelijke geschillenbemiddeling.'
           ]
         },
-        issuanceDate: new Date(),
-        expiryDate: new Date(
-          new Date().setFullYear(new Date().getFullYear() + 1)
-        ),
-        verifier: {
-          verifiedAt: new Date(),
-          name: 'Examenkamer',
-          url: 'https://example.com/verifier-xyz',
-          logoUrl:
-            'https://www.examenkamer.nl/inhoud/uploads/Logo-full-color.svg'
-        }
+        image:
+          'https://static.wikia.nocookie.net/fictionalcompanies/images/c/c2/ACME_Corporation.png',
+        name: 'ACME Corp'
       },
-      checks: [
-        {
-          name: 'Credential Authentication',
-          status: 'passed'
-        },
-        {
-          name: 'Credential Status',
-          status: 'passed'
-        },
-        {
-          name: 'Ecosystem Connection',
-          status: 'passed'
-        },
-        {
-          name: 'Issuer Domain',
-          status: 'passed'
-        },
-        {
-          name: 'Profile Check',
-          status: 'passed'
-        }
-      ]
-    })
+      issuer: {
+        id: 'https://example.com/',
+        name: 'EVC Nederland'
+      },
+      issuanceDate: '2025-11-12T12:23:13Z',
+      expirationDate: '2035-12-31T23:59:59Z'
+    },
+    proof: {
+      status: 'Success',
+      payload: null
+    },
+    status: {
+      status: 'Success',
+      payload: null
+    },
+    trust_relation: {
+      status: 'Success',
+      payload: null
+    },
+    linked_vp: {
+      status: 'Success',
+      payload: null
+    },
+    domain_linkage: {
+      status: 'Success',
+      payload: null
+    }
   }
+]
 
-  const randomReason = errorCodes[Math.floor(Math.random() * errorCodes.length)]
+export async function POST() {
+  // Optional: simulating a delay for testing purposes,
+  await new Promise((resolve) => setTimeout(resolve, 0))
 
-  return Response.json({
-    checks: [
-      {
-        name: 'Credential Authentication',
-        status: randomReason.shouldShowCredential ? 'passed' : 'failed',
-        error: randomReason.shouldShowCredential ? undefined : randomReason.code
-      },
-      {
-        name: 'Credential Status',
-        status: 'failed',
-        error: randomReason.code
-      },
-      {
-        name: 'Ecosystem Connection',
-        status: 'failed',
-        error: randomReason.code
-      },
-      {
-        name: 'Issuer Domain',
-        status: 'failed',
-        error: randomReason.code
-      },
-      {
-        name: 'Profile Check',
-        status: 'failed',
-        error: randomReason.code
-      }
-    ]
-  })
+  const randomIndex = Math.floor(Math.random() * exampleResponses.length)
+  const exampleResponse = exampleResponses[randomIndex]
+
+  return Response.json(exampleResponse)
 }

@@ -1,10 +1,11 @@
 import React from 'react'
 
-import CredentialCheck from '@/components/atoms/CredentialCheck/CredentialCheck'
-import { TVerificationResult } from '@/lib/schemas/verificationResultSchema'
+import CredentialCheck, {
+  ICredentialCheckProps
+} from '@/components/atoms/CredentialCheck/CredentialCheck'
 
 interface ICredentialChecksProps {
-  checks: TVerificationResult['checks']
+  checks: ICredentialCheckProps['check'][]
 }
 
 const CredentialChecks = ({ checks }: ICredentialChecksProps) => {

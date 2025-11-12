@@ -31,10 +31,6 @@ export const credentialSchema = z.object({
     certifications: z.array(certificationSchema),
     trustEcosystems: z.array(trustEcosystemSchema)
   }),
-  issuanceDate: z.string().refine((date) => !isNaN(Date.parse(date)), {
-    message: 'Invalid date format'
-  }),
-  expiryDate: z.iso.datetime().pipe(z.coerce.date()),
   verifier: z
     .object({
       name: z.string().min(1, 'verifier name cannot be empty'),
@@ -44,22 +40,36 @@ export const credentialSchema = z.object({
     .nullable()
 })
 
-const checkSchema = z.discriminatedUnion('status', [
-  z.object({
-    name: z.string().min(1, 'check name cannot be empty'),
-    status: z.literal('passed'),
-    error: z.undefined()
-  }),
-  z.object({
-    name: z.string().min(1, 'check name cannot be empty'),
-    status: z.literal('failed'),
-    error: z.string().min(1, 'error message cannot be empty')
-  })
-])
+export const checkSchema = z.object({
+  status: z.enum(['Success', 'Failure', 'Unknown']),
+  // Optional error message
+  payload: z.string().optional().nullable()
+})
 
 export const verificationResultSchema = z.object({
-  checks: z.array(checkSchema)
+  credential: z
+    .object({
+      '@context': z.array(z.string()).min(1),
+      id: z.string().min(1, 'credential id cannot be empty'),
+      issuer: z.object({
+        name: z.string().min(1, 'issuer name cannot be empty')
+      }),
+      type: z.array(z.string()).min(1, 'credential type cannot be empty'),
+      issuanceDate: z.iso.datetime().pipe(z.coerce.date()),
+      expirationDate: z.iso.datetime().pipe(z.coerce.date()),
+      credentialSubject: z.object({
+        name: z.string().min(1, 'name cannot be empty').optional()
+      })
+    })
+    .nullable()
+    .optional(),
+  proof: checkSchema,
+  status: checkSchema,
+  trust_relation: checkSchema,
+  linked_vp: checkSchema,
+  domain_linkage: checkSchema
 })
 
 export type TVerificationResult = z.infer<typeof verificationResultSchema>
 export type TCredential = z.infer<typeof credentialSchema>
+export type TCheck = z.infer<typeof checkSchema>

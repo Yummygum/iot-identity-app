@@ -7,7 +7,16 @@ import { TCredential } from '@/lib/schemas/verificationResultSchema'
 
 interface ICredentialDetailsCardProps {
   isLoading?: boolean
-  data?: TCredential
+  data?: TCredential & {
+    issuanceDate?: Date
+    expirationDate?: Date
+    issuer?: {
+      name?: string
+    }
+    credentialSubject?: {
+      name?: string
+    }
+  }
   setOpenModal: Dispatch<SetStateAction<'issuer' | 'credential' | null>>
 }
 
@@ -36,15 +45,19 @@ const CredentialDetailsCard = ({
                 remains valid.
               </p>
 
-              <p>
-                <span className="text-foreground">{data.issuedTo}</span> • Valid
-                until{' '}
-                {data.expiryDate.toLocaleDateString('en-US', {
-                  month: 'short',
-                  day: 'numeric',
-                  year: 'numeric'
-                })}
-              </p>
+              {data.expirationDate && (
+                <p>
+                  <span className="text-foreground">
+                    {data.credentialSubject?.name}
+                  </span>{' '}
+                  • Valid until{' '}
+                  {data.expirationDate.toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric'
+                  })}
+                </p>
+              )}
             </div>
 
             <Button
