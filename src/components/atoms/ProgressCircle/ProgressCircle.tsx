@@ -1,9 +1,8 @@
 import { motion } from 'motion/react'
-import { SVGProps, useEffect, useState } from 'react'
+import { SVGProps } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 import Icon from '@/components/atoms/Icon'
-import forceRepaint from '@/utils/forceRepaint'
 
 const ANIMATION_DURATION = 0.4
 
@@ -28,8 +27,6 @@ const ProgressCircle = ({
   className,
   ...props
 }: IStatusCircleProps) => {
-  const [isAnimating, setIsAnimating] = useState<boolean>(true)
-
   const radius = (50 - strokeWidth) / 2
   const circumference = 2 * Math.PI * radius
 
@@ -46,28 +43,6 @@ const ProgressCircle = ({
   }
 
   const rotation = -90 + gapSize / 2
-
-  useEffect(() => {
-    let frameId: number
-
-    const repaint = () => {
-      if (isAnimating) {
-        forceRepaint()
-
-        frameId = requestAnimationFrame(repaint)
-      }
-    }
-
-    if (isAnimating) {
-      repaint()
-    }
-
-    return () => {
-      if (frameId) {
-        cancelAnimationFrame(frameId)
-      }
-    }
-  }, [isAnimating])
 
   return (
     <div className={twMerge('relative aspect-square h-full', className)}>
@@ -101,11 +76,6 @@ const ProgressCircle = ({
                 stroke: 'rgba(255,255,255,0)'
               }}
               key={index}
-              onAnimationComplete={() => {
-                if (index === normalizedStatuses.length - 1) {
-                  setIsAnimating(false)
-                }
-              }}
               r={radius}
               strokeDasharray={`${filledArc} ${circumference - filledArc}`}
               strokeDashoffset={-offset}
