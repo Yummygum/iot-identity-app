@@ -53,11 +53,11 @@ const DetailsModal = ({
             value={identifierInfo.dateOfBirth}
           />
         )}
-        {credential.expirationDate && (
+        {credential.issuanceDate && (
           <InfoItem
             iconName="sealCheck"
             title="Valid"
-            value={credential.expirationDate.toLocaleDateString()}
+            value={credential.issuanceDate.toLocaleDateString()}
           />
         )}
         <InfoItem
@@ -68,22 +68,37 @@ const DetailsModal = ({
         />
       </div>
 
-      {/* TODO: Formatting isn't correct */}
-      {credential.credentialSubject.achievement?.criteria.narrative && (
+      {credential.credentialSubject.achievement?.description && (
         <>
           <hr className="border-foreground/5 my-12" />
           <div>
             <h2 className="mb-2 font-medium">Description</h2>
-            <div className="text-foreground/70 whitespace-pre-wrap">
+            <div className="text-foreground/70 prose prose-invert whitespace-pre-wrap">
               <Markdown>
-                {credential.credentialSubject.achievement?.criteria.narrative}
+                {credential.credentialSubject.achievement?.description}
               </Markdown>
             </div>
           </div>
         </>
       )}
 
-      <hr className="border-foreground/5 my-12" />
+      {credential.credentialSubject.achievement?.criteria.narrative && (
+        <>
+          <hr className="border-foreground/5 my-12" />
+          <div>
+            <h2 className="mb-2 font-medium">Criteria</h2>
+            <div className="text-foreground/70 prose prose-invert whitespace-pre-wrap">
+              <Markdown>
+                {credential.credentialSubject.achievement?.criteria.narrative
+                  .replace(/\\n/g, '\n')
+                  .replace(/\\n/g, ' ')}
+              </Markdown>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* <hr className="border-foreground/5 my-12" /> */}
 
       {/* TODO: Dynamic table */}
       {/* <DegreeTable /> */}
