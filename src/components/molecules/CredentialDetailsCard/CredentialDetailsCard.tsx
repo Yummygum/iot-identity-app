@@ -4,19 +4,11 @@ import Button from '@/components/atoms/Button/Button'
 import Card from '@/components/atoms/Card/Card'
 import Icon from '@/components/atoms/Icon'
 import { TCredential } from '@/lib/schemas/verificationResultSchema'
+import { getIdentificationData } from '@/utils/getIdentificationData'
 
 interface ICredentialDetailsCardProps {
   isLoading?: boolean
-  data?: TCredential & {
-    issuanceDate?: Date
-    expirationDate?: Date
-    issuer?: {
-      name?: string
-    }
-    credentialSubject?: {
-      name?: string
-    }
-  }
+  data?: TCredential
   setOpenModal: Dispatch<SetStateAction<'issuer' | 'credential' | null>>
 }
 
@@ -28,6 +20,10 @@ const CredentialDetailsCard = ({
   if (isLoading) {
     return null
   }
+
+  const identifierInfo = getIdentificationData(
+    data?.credentialSubject.identifier
+  )
 
   return (
     <section className="h-full">
@@ -45,19 +41,23 @@ const CredentialDetailsCard = ({
                 remains valid.
               </p>
 
-              {data.expirationDate && (
-                <p>
-                  <span className="text-foreground">
-                    {data.credentialSubject?.name}
-                  </span>{' '}
-                  • Valid until{' '}
-                  {data.expirationDate.toLocaleDateString('en-US', {
-                    month: 'short',
-                    day: 'numeric',
-                    year: 'numeric'
-                  })}
-                </p>
-              )}
+              <p>
+                {identifierInfo?.name && (
+                  <span className="text-foreground">{identifierInfo.name}</span>
+                )}
+
+                {data.expirationDate && (
+                  <>
+                    {' '}
+                    • Valid until{' '}
+                    {data.expirationDate.toLocaleDateString('en-US', {
+                      month: 'short',
+                      day: 'numeric',
+                      year: 'numeric'
+                    })}
+                  </>
+                )}
+              </p>
             </div>
 
             <Button

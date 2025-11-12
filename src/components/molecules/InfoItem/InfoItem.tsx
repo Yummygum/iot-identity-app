@@ -5,7 +5,7 @@ import Icon, { TIconName } from '@/components/atoms/Icon'
 
 interface IInfoItemProps {
   title: string
-  value?: string
+  value?: string | null
   iconName: TIconName
   isLink?: boolean
 }
@@ -20,7 +20,7 @@ const InfoItem = ({ title, value, iconName, isLink }: IInfoItemProps) => {
         <span className="font-medium text-white">{title}</span>
 
         <span className="text-foreground/50 truncate text-xs">
-          {isLink ? (
+          {isLink && value ? (
             <a href={value} rel="noopener noreferrer" target="_blank">
               {value}
             </a>

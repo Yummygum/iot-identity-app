@@ -56,21 +56,9 @@ const VerificationPage = ({
 
   return (
     <>
-      <div className="grid items-center gap-16 py-16 md:grid-cols-2">
+      <div className={'grid items-center gap-16 py-16 md:grid-cols-2'}>
         <div>
-          <CredentialHeading
-            credential={{
-              ...credential,
-              ...verificationData.credential,
-              type: Array.isArray(verificationData.credential?.type)
-                ? verificationData.credential?.type[0]
-                : undefined,
-              issuer: {
-                ...credential.issuer,
-                ...verificationData.credential?.issuer
-              }
-            }}
-          />
+          <CredentialHeading credential={credential} />
 
           <CredentialChecks checks={checks} />
         </div>
@@ -87,19 +75,7 @@ const VerificationPage = ({
       </div>
 
       {verificationData.credential && (
-        <DetailCards
-          credential={{
-            ...credential,
-            ...verificationData.credential,
-            type: Array.isArray(verificationData.credential?.type)
-              ? verificationData.credential?.type[0]
-              : undefined,
-            issuer: {
-              ...credential.issuer,
-              ...verificationData.credential.issuer
-            }
-          }}
-        />
+        <DetailCards credential={verificationData.credential} />
       )}
     </>
   )

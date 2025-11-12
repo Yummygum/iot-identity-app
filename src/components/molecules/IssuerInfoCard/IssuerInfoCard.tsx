@@ -3,10 +3,10 @@ import { Dispatch, SetStateAction } from 'react'
 import Button from '@/components/atoms/Button/Button'
 import Card from '@/components/atoms/Card/Card'
 import Icon from '@/components/atoms/Icon'
-import { TCredential } from '@/lib/schemas/verificationResultSchema'
+import { TIssuer } from '@/lib/schemas/verificationResultSchema'
 
 interface IIssuerInfoCardProps {
-  issuer: TCredential['issuer']
+  issuer: TIssuer
   setOpenModal: Dispatch<SetStateAction<'issuer' | 'credential' | null>>
 }
 
@@ -27,10 +27,16 @@ const IssuerInfoCard = ({ issuer, setOpenModal }: IIssuerInfoCardProps) => {
             </p>
 
             <p>
-              <span className="text-white">{issuer.name}</span> •{' '}
-              <a href={issuer.url} target="_blank">
-                {issuer.url}
-              </a>
+              <span className="text-white">{issuer.name}</span>
+              {issuer.id && (
+                <>
+                  {' '}
+                  •{' '}
+                  <a href={issuer.id} target="_blank">
+                    {issuer.id}
+                  </a>
+                </>
+              )}
             </p>
           </div>
 

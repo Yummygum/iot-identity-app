@@ -7,6 +7,7 @@ import { ZodError } from 'zod'
 import WhiteLabelGradients from '@/components/molecules/WhiteLabelGradients/WhiteLabelGradients'
 import LandingPage from '@/components/organisms/LandingPage/LandingPage'
 import VerificationPage from '@/components/organisms/VerificationPage/VerificationPage'
+import { COLORS } from '@/lib/constants'
 import {
   credentialSchema,
   TCredential,
@@ -33,7 +34,7 @@ const VerificationDashboard = () => {
       const res = await fetch('/api/credential', { method: 'POST' })
       const data = await res.json()
 
-      const parseRes = credentialSchema.parse(data.credential)
+      const parseRes = credentialSchema.parse(data)
 
       setCredential(parseRes)
     } catch (err) {
@@ -81,18 +82,16 @@ const VerificationDashboard = () => {
 
   return (
     <div className="relative flex min-h-screen">
-      {credential?.issuer.colors.primary && (
-        <WhiteLabelGradients
-          primaryColor={credential?.issuer.colors.primary}
-          secondaryColor={credential?.issuer.colors.secondary}
-        />
-      )}
+      <WhiteLabelGradients
+        primaryColor={COLORS.primary}
+        secondaryColor={COLORS.secondary}
+      />
 
       <div
         className="relative mx-auto flex w-full max-w-7xl grow flex-col justify-between p-8 md:p-16"
         style={
           {
-            '--color-primary': credential?.issuer?.colors?.primary ?? ''
+            '--color-primary': COLORS.primary
           } as CSSProperties
         }
       >

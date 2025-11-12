@@ -4,6 +4,7 @@ import React from 'react'
 
 import QRCodeCard from '@/components/molecules/QRCodeCard/QRCodeCard'
 import WhiteLabelGradients from '@/components/molecules/WhiteLabelGradients/WhiteLabelGradients'
+import { COLORS } from '@/lib/constants'
 
 const STEPS = [
   'Download the UniMe app via the Google Play Store or the Apple Store.',
@@ -24,7 +25,10 @@ const SharePage = async ({
 
   return (
     <div className="h-full w-full">
-      <WhiteLabelGradients primaryColor="#0079C7" secondaryColor="#EBA630" />
+      <WhiteLabelGradients
+        primaryColor={COLORS.primary}
+        secondaryColor={COLORS.secondary}
+      />
 
       <div className="relative mx-auto flex h-full min-h-screen w-full max-w-7xl flex-col items-center justify-center p-8">
         <Image

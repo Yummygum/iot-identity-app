@@ -1,11 +1,12 @@
 import { Dispatch, SetStateAction } from 'react'
+import Markdown from 'react-markdown'
 
 import Icon from '@/components/atoms/Icon'
 import Modal from '@/components/organisms/Modal/Modal'
-import { TCredential } from '@/lib/schemas/verificationResultSchema'
+import { TIssuer } from '@/lib/schemas/verificationResultSchema'
 
 interface IIssuerModalProps {
-  issuer: TCredential['issuer']
+  issuer: TIssuer
   openModal: 'credential' | 'issuer' | null
   setOpenModal: Dispatch<SetStateAction<'credential' | 'issuer' | null>>
 }
@@ -30,11 +31,11 @@ const IssuerModal = ({
       onClose={() => setOpenModal(null)}
     >
       <div className="flex gap-5">
-        {issuer.logoUrl && (
+        {issuer.image?.id && (
           <img
             alt={`${issuer.name} logo`}
             className="h-16 w-16 rounded-lg"
-            src={issuer.logoUrl}
+            src={issuer.image.id}
           />
         )}
 
@@ -55,12 +56,14 @@ const IssuerModal = ({
       </div>
 
       {issuer.description && (
-        <p className="mt-6 whitespace-pre-wrap">{issuer.description}</p>
+        <div className="mt-6">
+          <Markdown>{issuer.description}</Markdown>
+        </div>
       )}
 
       <hr className="border-foreground/5 my-10" />
 
-      {issuer.certifications && (
+      {/* {issuer.certifications && (
         <>
           <h3 className="mb-4 text-xl font-medium">Public Certifications</h3>
 
@@ -105,33 +108,34 @@ const IssuerModal = ({
 
           <hr className="border-foreground/5 my-10" />
         </>
-      )}
+      )} */}
 
-      {issuer.trustEcosystems.length > 0 && (
-        <>
-          <h3 className="mb-4 text-xl font-medium">Trust Ecosystems</h3>
+      {/* {issuer.trust_ecosystems &&
+        (issuer.trust_ecosystems?.length ?? 0) > 0 && (
+          <>
+            <h3 className="mb-4 text-xl font-medium">Trust Ecosystems</h3>
 
-          <div>
-            {issuer.trustEcosystems.map((trustEcosystem, index) => (
-              <div
-                className="items-center justify-between gap-2 px-2 py-5 md:flex"
-                key={index}
-              >
-                <div className="flex flex-col gap-2">
-                  <h4 className="font-medium">{trustEcosystem.name}</h4>
+            <div>
+              {issuer.trust_ecosystems.map((trustEcosystem, index) => (
+                <div
+                  className="items-center justify-between gap-2 px-2 py-5 md:flex"
+                  key={index}
+                >
+                  <div className="flex flex-col gap-2">
+                    <h4 className="font-medium">{trustEcosystem.name}</h4>
+                    <p className="text-foreground/50 text-sm">
+                      By {trustEcosystem.owner}
+                    </p>
+                  </div>
+
                   <p className="text-foreground/50 text-sm">
-                    By {trustEcosystem.owner}
+                    {trustEcosystem.members_amount} members
                   </p>
                 </div>
-
-                <p className="text-foreground/50 text-sm">
-                  {trustEcosystem.membersAmount} members
-                </p>
-              </div>
-            ))}
-          </div>
-        </>
-      )}
+              ))}
+            </div>
+          </>
+        )} */}
     </Modal>
   )
 }

@@ -1,22 +1,14 @@
 import { Dispatch, SetStateAction } from 'react'
+import Markdown from 'react-markdown'
 
 import Icon from '@/components/atoms/Icon'
 import InfoItem from '@/components/molecules/InfoItem/InfoItem'
-import DegreeTable from '@/components/organisms/DegreeTable/DegreeTable'
 import Modal from '@/components/organisms/Modal/Modal'
 import { TCredential } from '@/lib/schemas/verificationResultSchema'
+import { getIdentificationData } from '@/utils/getIdentificationData'
 
 interface IDetailsModalProps {
-  credential: TCredential & {
-    issuanceDate?: Date
-    expirationDate?: Date
-    issuer?: {
-      name?: string
-    }
-    credentialSubject?: {
-      name?: string
-    }
-  }
+  credential: TCredential
   openModal: 'credential' | 'issuer' | null
   setOpenModal: Dispatch<SetStateAction<'credential' | 'issuer' | null>>
 }
@@ -26,6 +18,10 @@ const DetailsModal = ({
   openModal,
   setOpenModal
 }: IDetailsModalProps) => {
+  const identifierInfo = credential.credentialSubject?.identifier
+    ? getIdentificationData(credential.credentialSubject.identifier)
+    : null
+
   return (
     <Modal
       headerAction={
@@ -41,16 +37,20 @@ const DetailsModal = ({
       onClose={() => setOpenModal(null)}
     >
       <div className="mb-8">
-        <h2 className="mb-2 text-3xl font-medium">{credential.type}</h2>
-        <p className="text-foreground/60">{credential?.name}</p>
+        <h2 className="mb-2 text-3xl font-medium">
+          {credential.credentialSubject.achievement?.achievementType}
+        </h2>
+        <p className="text-foreground/60">
+          {credential.credentialSubject.achievement?.name}
+        </p>
       </div>
 
       <div className="grid gap-2 md:grid-cols-3">
-        {credential.credentialSubject?.name && (
+        {identifierInfo && (
           <InfoItem
             iconName="user"
-            title={credential.credentialSubject.name}
-            value={credential.dateOfBirth.toLocaleDateString()}
+            title={identifierInfo.name ?? ''}
+            value={identifierInfo.dateOfBirth}
           />
         )}
         {credential.expirationDate && (
@@ -63,25 +63,30 @@ const DetailsModal = ({
         <InfoItem
           iconName="mapPin"
           isLink
-          title={credential.issuer.name}
-          value={credential.issuer.url}
+          title={credential.credentialSubject.achievement?.creator?.name ?? ''}
+          value={credential.credentialSubject.achievement?.creator?.id ?? ''}
         />
       </div>
 
-      {credential.description && (
+      {/* TODO: Formatting isn't correct */}
+      {credential.credentialSubject.achievement?.criteria.narrative && (
         <>
           <hr className="border-foreground/5 my-12" />
           <div>
             <h2 className="mb-2 font-medium">Description</h2>
-            <p className="text-foreground/70 whitespace-pre-wrap">
-              {credential.description}
-            </p>
+            <div className="text-foreground/70 whitespace-pre-wrap">
+              <Markdown>
+                {credential.credentialSubject.achievement?.criteria.narrative}
+              </Markdown>
+            </div>
           </div>
         </>
       )}
 
       <hr className="border-foreground/5 my-12" />
-      <DegreeTable />
+
+      {/* TODO: Dynamic table */}
+      {/* <DegreeTable /> */}
     </Modal>
   )
 }

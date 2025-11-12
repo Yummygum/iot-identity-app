@@ -9,15 +9,25 @@ const CredentialPreview = ({ credential }: ICredentialPreviewProps) => {
   return (
     <div className="fade-in fast relative flex w-full max-w-md flex-col gap-2">
       <div className="move-up">
-        <Card className="" title={credential.type}>
+        <Card
+          className=""
+          title={
+            credential.credentialSubject.achievement?.achievementType ?? ''
+          }
+        >
           <div className="text-foreground/60">
-            <p className="mb-6">{credential?.name}</p>
-            <p className="text-sm">Issuer • {credential?.issuer.name}</p>
+            <p className="mb-6">
+              {credential.credentialSubject.achievement?.name}
+            </p>
+            <p className="text-sm">
+              Issuer • {credential.credentialSubject.achievement?.creator?.name}
+            </p>
           </div>
         </Card>
       </div>
 
-      {credential.verifier?.logoUrl && (
+      {/* TODO: Verifier info? */}
+      {/* {credential.verifier?.logoUrl && (
         <div className="move-up top-0 right-0 z-10 opacity-0 delay-700 md:absolute md:translate-x-8 md:-translate-y-8">
           <Card
             className="relative h-12 rounded-2xl p-2.5 shadow-md backdrop-blur-3xl md:bg-[#2D2F31]"
@@ -32,7 +42,7 @@ const CredentialPreview = ({ credential }: ICredentialPreviewProps) => {
             </div>
           </Card>
         </div>
-      )}
+      )} */}
     </div>
   )
 }
