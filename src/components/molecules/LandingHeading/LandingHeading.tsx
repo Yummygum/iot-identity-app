@@ -10,7 +10,7 @@ interface IVerificationLandingProps {
 
 const LandingHeading = ({ setCurrentScreen }: IVerificationLandingProps) => {
   return (
-    <div className="row-start-2 flex flex-col gap-6 md:row-auto">
+    <div className="row-start-2 flex flex-col gap-6 lg:row-auto">
       <h1 className="text-2xl font-medium md:text-6xl">
         Verify this credential to check its validity
       </h1>

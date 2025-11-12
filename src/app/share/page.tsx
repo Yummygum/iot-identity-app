@@ -1,9 +1,8 @@
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import React from 'react'
-import QRCode from 'react-qr-code'
 
-import Card from '@/components/atoms/Card/Card'
+import QRCodeCard from '@/components/molecules/QRCodeCard/QRCodeCard'
 import WhiteLabelGradients from '@/components/molecules/WhiteLabelGradients/WhiteLabelGradients'
 
 const STEPS = [
@@ -27,7 +26,7 @@ const SharePage = async ({
     <div className="h-full w-full">
       <WhiteLabelGradients primaryColor="#0079C7" secondaryColor="#EBA630" />
 
-      <div className="relative mx-auto flex h-full min-h-screen w-full max-w-7xl flex-col items-center justify-center">
+      <div className="relative mx-auto flex h-full min-h-screen w-full max-w-7xl flex-col items-center justify-center p-8">
         <Image
           alt=""
           className="object-cover"
@@ -36,17 +35,10 @@ const SharePage = async ({
         />
 
         <div className="mt-32 grow lg:mt-0 lg:grow-0">
-          <Card className="w-fit p-6 backdrop-blur-3xl">
-            <QRCode
-              bgColor={'transparent'}
-              className="w-full"
-              fgColor="white"
-              value={url}
-            />
-          </Card>
+          <QRCodeCard url={url} />
         </div>
 
-        <div className="bottom-0 flex w-full flex-col gap-10 p-8 lg:absolute">
+        <div className="bottom-0 flex w-full flex-col gap-10 sm:p-8 lg:absolute">
           <div className="mx-auto flex w-fit flex-col justify-between gap-8 lg:w-full lg:flex-row">
             {STEPS.map((step, index) => (
               <div className="flex max-w-64 flex-col gap-2" key={index}>

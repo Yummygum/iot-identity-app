@@ -147,7 +147,7 @@ const ProgressCircle = ({
             y2="0%"
           >
             <stop offset="0%" stopColor="rgba(255,255,255,0.1)" />
-            <stop offset="100%" stopColor="rgba(0,0,0,0.3)" />
+            <stop offset="100%" stopColor="rgba(0,0,0,0.2)" />
           </linearGradient>
         </defs>
 

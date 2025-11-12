@@ -12,7 +12,7 @@ interface ILandingPageProps {
 
 const LandingPage = ({ credential, setCurrentScreen }: ILandingPageProps) => {
   return (
-    <div className="grid h-full grid-rows-[1fr_1fr] items-center md:grid-cols-2 md:grid-rows-1">
+    <div className="grid h-full grid-rows-[1fr_1fr] items-center lg:grid-cols-2 lg:grid-rows-1 gap-16">
       <LandingHeading setCurrentScreen={setCurrentScreen} />
 
       {credential && (
