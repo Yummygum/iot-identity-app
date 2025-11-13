@@ -17,7 +17,21 @@ const DetailCards = ({ credential }: IDetailCardsProps) => {
 
   return (
     <div className="mt-0 grid gap-10 md:grid-cols-2">
-      <CredentialDetailsCard data={credential} setOpenModal={setOpenModal} />
+      {credential.credentialSubject.achievement && (
+        <>
+          <CredentialDetailsCard
+            data={credential}
+            setOpenModal={setOpenModal}
+          />
+
+          <DetailsModal
+            credential={credential}
+            key="details-modal"
+            openModal={openModal}
+            setOpenModal={setOpenModal}
+          />
+        </>
+      )}
 
       {credential.credentialSubject.achievement?.creator && (
         <>
@@ -28,13 +42,6 @@ const DetailCards = ({ credential }: IDetailCardsProps) => {
 
           <IssuerModal
             issuer={credential.credentialSubject.achievement?.creator}
-            openModal={openModal}
-            setOpenModal={setOpenModal}
-          />
-
-          <DetailsModal
-            credential={credential}
-            key="details-modal"
             openModal={openModal}
             setOpenModal={setOpenModal}
           />

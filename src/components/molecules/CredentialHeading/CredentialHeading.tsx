@@ -1,12 +1,17 @@
 import React from 'react'
 
 import { TCredential } from '@/lib/schemas/verificationResultSchema'
+import { getIdentificationData } from '@/utils/getIdentificationData'
 
 interface ICredentialHeadingProps {
   credential: TCredential
 }
 
 const CredentialHeading = ({ credential }: ICredentialHeadingProps) => {
+  const identifierInfo = credential.credentialSubject?.identifier
+    ? getIdentificationData(credential.credentialSubject.identifier)
+    : null
+
   return (
     <header className="pb-16">
       <>
@@ -15,7 +20,7 @@ const CredentialHeading = ({ credential }: ICredentialHeadingProps) => {
         </h1>
 
         <h2 className="text-foreground/70 text-lg md:text-xl">
-          {credential.credentialSubject?.achievement?.name}{' '}
+          {identifierInfo?.name ?? ''}{' '}
           <span className="text-foreground/50">
             • {credential.credentialSubject?.achievement?.creator?.name}
           </span>

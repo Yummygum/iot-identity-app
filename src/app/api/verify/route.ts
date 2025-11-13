@@ -1,27 +1,27 @@
 const exampleResponses = [
-  // {
-  //   credential: null,
-  //   proof: {
-  //     status: 'Success',
-  //     payload: null
-  //   },
-  //   status: {
-  //     status: 'Success',
-  //     payload: null
-  //   },
-  //   trust_relation: {
-  //     status: 'Success',
-  //     payload: null
-  //   },
-  //   linked_vp: {
-  //     status: 'Success',
-  //     payload: null
-  //   },
-  //   domain_linkage: {
-  //     status: 'Unknown',
-  //     payload: 'Could not fetch domain linkage did-configuration file'
-  //   }
-  // },
+  {
+    credential: null,
+    proof: {
+      status: 'Success',
+      payload: null
+    },
+    status: {
+      status: 'Success',
+      payload: null
+    },
+    trust_relation: {
+      status: 'Success',
+      payload: null
+    },
+    linked_vp: {
+      status: 'Success',
+      payload: null
+    },
+    domain_linkage: {
+      status: 'Unknown',
+      payload: 'Could not fetch domain linkage did-configuration file'
+    }
+  },
   {
     credential: {
       '@context': [
