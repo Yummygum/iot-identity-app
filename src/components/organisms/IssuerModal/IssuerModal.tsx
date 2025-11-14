@@ -3,19 +3,26 @@ import Markdown from 'react-markdown'
 
 import Icon from '@/components/atoms/Icon'
 import Modal from '@/components/organisms/Modal/Modal'
-import { TIssuer } from '@/lib/schemas/verificationResultSchema'
+import { TCredentialIssuer } from '@/lib/schemas/CredentialIssuerSchema'
+import { TCredential } from '@/lib/schemas/VerificationResultSchema'
 
 interface IIssuerModalProps {
-  issuer: TIssuer
+  issuer: TCredentialIssuer
   openModal: 'credential' | 'issuer' | null
   setOpenModal: Dispatch<SetStateAction<'credential' | 'issuer' | null>>
+  credential?: TCredential | null
 }
 
 const IssuerModal = ({
   issuer,
+  credential,
   openModal,
   setOpenModal
 }: IIssuerModalProps) => {
+  const issuerName = issuer.display?.at(0)?.name || 'Issuer'
+  const issuerLogoUrl = issuer.display?.at(0)?.logo?.uri || ''
+  const issuerUrl = credential?.credentialSubject.achievement?.creator?.id
+
   return (
     <Modal
       headerAction={
@@ -31,33 +38,35 @@ const IssuerModal = ({
       onClose={() => setOpenModal(null)}
     >
       <div className="flex gap-5">
-        {issuer.image?.id && (
+        {issuerLogoUrl && (
           <img
-            alt={`${issuer.name} logo`}
+            alt={`${issuerName} logo`}
             className="h-16 w-16 rounded-lg"
-            src={issuer.image.id}
+            src={issuerLogoUrl}
           />
         )}
 
         <div className="flex flex-col gap-2">
-          <h2 className="text-3xl font-medium">{issuer.name}</h2>
+          <h2 className="text-3xl font-medium">{issuerName}</h2>
 
-          {issuer.url && (
+          {issuerUrl && (
             <a
               className="text-foreground/70 text-sm"
-              href={issuer.url}
+              href={issuerUrl}
               rel="noopener noreferrer"
               target="_blank"
             >
-              {issuer.url}
+              {issuerUrl}
             </a>
           )}
         </div>
       </div>
 
-      {issuer.description && (
+      {credential?.credentialSubject.achievement?.creator?.description && (
         <div className="mt-6">
-          <Markdown>{issuer.description}</Markdown>
+          <Markdown>
+            {credential.credentialSubject.achievement.creator.description}
+          </Markdown>
         </div>
       )}
 

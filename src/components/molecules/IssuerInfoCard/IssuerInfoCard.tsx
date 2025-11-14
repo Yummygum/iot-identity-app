@@ -3,14 +3,23 @@ import { Dispatch, SetStateAction } from 'react'
 import Button from '@/components/atoms/Button/Button'
 import Card from '@/components/atoms/Card/Card'
 import Icon from '@/components/atoms/Icon'
-import { TIssuer } from '@/lib/schemas/verificationResultSchema'
+import { TCredentialIssuer } from '@/lib/schemas/CredentialIssuerSchema'
+import { TCredential } from '@/lib/schemas/VerificationResultSchema'
 
 interface IIssuerInfoCardProps {
-  issuer: TIssuer
+  issuer: TCredentialIssuer
   setOpenModal: Dispatch<SetStateAction<'issuer' | 'credential' | null>>
+  credential: TCredential
 }
 
-const IssuerInfoCard = ({ issuer, setOpenModal }: IIssuerInfoCardProps) => {
+const IssuerInfoCard = ({
+  issuer,
+  setOpenModal,
+  credential
+}: IIssuerInfoCardProps) => {
+  const issuerName = issuer.display?.at(0)?.name || 'Issuer'
+  const issuerUrl = credential.credentialSubject.achievement?.creator?.id
+
   return (
     <section className="h-full">
       <Card
@@ -27,13 +36,13 @@ const IssuerInfoCard = ({ issuer, setOpenModal }: IIssuerInfoCardProps) => {
             </p>
 
             <p>
-              <span className="text-white">{issuer.name}</span>
-              {issuer.id && (
+              <span className="text-white">{issuerName}</span>
+              {issuerUrl && (
                 <>
                   {' '}
                   •{' '}
-                  <a href={issuer.id} target="_blank">
-                    {issuer.id}
+                  <a href={issuerUrl} target="_blank">
+                    {issuerUrl}
                   </a>
                 </>
               )}

@@ -6,18 +6,21 @@ import CredentialChecks from '@/components/molecules/CredentialChecks/Credential
 import CredentialHeading from '@/components/molecules/CredentialHeading/CredentialHeading'
 import DetailCards from '@/components/molecules/DetailCard/DetailCards'
 import {
-  TCredential,
-  TVerificationResult
-} from '@/lib/schemas/verificationResultSchema'
+  TCredentialConfiguration,
+  TCredentialIssuer
+} from '@/lib/schemas/CredentialIssuerSchema'
+import { TVerificationResult } from '@/lib/schemas/VerificationResultSchema'
 
 interface IVerificationPageProps {
-  credential: TCredential
   verificationData: TVerificationResult
+  achievementData: NonNullable<TCredentialConfiguration>['display']
+  issuer?: TCredentialIssuer | null
 }
 
 const VerificationPage = ({
-  credential,
-  verificationData
+  verificationData,
+  achievementData,
+  issuer
 }: IVerificationPageProps) => {
   const checks: ICredentialCheckProps['check'][] = [
     {
@@ -58,7 +61,11 @@ const VerificationPage = ({
     <>
       <div className={'grid items-center gap-16 py-16 md:grid-cols-2'}>
         <div>
-          <CredentialHeading credential={credential} />
+          <CredentialHeading
+            achievementData={achievementData}
+            credential={verificationData.credential}
+            issuerData={issuer}
+          />
 
           <CredentialChecks checks={checks} />
         </div>
@@ -75,7 +82,7 @@ const VerificationPage = ({
       </div>
 
       {verificationData.credential && (
-        <DetailCards credential={verificationData.credential} />
+        <DetailCards credential={verificationData.credential} issuer={issuer} />
       )}
     </>
   )

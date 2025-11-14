@@ -1,4 +1,4 @@
-import { TIdentifier } from '@/lib/schemas/verificationResultSchema'
+import { TIdentifier } from '@/lib/schemas/VerificationResultSchema'
 
 const getIdentificationData = (identifier?: TIdentifier[] | null) => {
   if (!identifier) {

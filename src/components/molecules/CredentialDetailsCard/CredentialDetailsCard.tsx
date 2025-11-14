@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from 'react'
 import Button from '@/components/atoms/Button/Button'
 import Card from '@/components/atoms/Card/Card'
 import Icon from '@/components/atoms/Icon'
-import { TCredential } from '@/lib/schemas/verificationResultSchema'
+import { TCredential } from '@/lib/schemas/VerificationResultSchema'
 import { getIdentificationData } from '@/utils/getIdentificationData'
 
 interface ICredentialDetailsCardProps {

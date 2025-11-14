@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { notFound } from 'next/navigation'
 import { CSSProperties, useEffect, useState } from 'react'
 import { ZodError } from 'zod'
 
@@ -9,17 +10,21 @@ import LandingPage from '@/components/organisms/LandingPage/LandingPage'
 import VerificationPage from '@/components/organisms/VerificationPage/VerificationPage'
 import { COLORS } from '@/lib/constants'
 import {
-  credentialSchema,
-  TCredential,
+  CredentialIssuerSchema,
+  TCredentialIssuer
+} from '@/lib/schemas/CredentialIssuerSchema'
+import {
   TVerificationResult,
   verificationResultSchema
-} from '@/lib/schemas/verificationResultSchema'
+} from '@/lib/schemas/VerificationResultSchema'
+import { extractIssuerUrlFromJWT } from '@/utils/extractIssuerUrlFromJWT'
 
 export enum VerificationScreenState {
   LANDING,
   RESULTS
 }
 
+// eslint-disable-next-line max-statements
 const VerificationDashboard = () => {
   const [error, setError] = useState<string | null>(null)
   const [currentScreen, setCurrentScreen] = useState<VerificationScreenState>(
@@ -27,19 +32,24 @@ const VerificationDashboard = () => {
   )
   const [verificationData, setVerificationData] =
     useState<TVerificationResult | null>(null)
-  const [credential, setCredential] = useState<TCredential | null>(null)
+  const [issuerData, setIssuerData] = useState<TCredentialIssuer | null>(null)
+  const [verifierData, setVerifierData] = useState<TCredentialIssuer | null>(
+    null
+  )
 
-  const fetchCredential = async () => {
+  const fetchVerifierData = async () => {
     try {
-      const res = await fetch('/api/credential', { method: 'POST' })
+      const res = await fetch(`/.well-known/openid-credential-issuer`, {
+        method: 'GET'
+      })
       const data = await res.json()
 
-      const parseRes = credentialSchema.parse(data)
+      const parseRes = CredentialIssuerSchema.parse(data)
 
-      setCredential(parseRes)
+      setVerifierData(parseRes)
     } catch (err) {
       if (err instanceof ZodError) {
-        setError('Error fetching credential')
+        setError('Error fetching verifier data')
       } else if (err instanceof Error) {
         setError(err.message)
       } else {
@@ -48,9 +58,35 @@ const VerificationDashboard = () => {
     }
   }
 
-  const fetchVerificationResult = async () => {
+  const fetchIssuerData = async (issuerUrl: string) => {
     try {
-      const res = await fetch('/api/verify', { method: 'POST' })
+      const res = await fetch(
+        `${issuerUrl}/.well-known/openid-credential-issuer`,
+        {
+          method: 'GET'
+        }
+      )
+      const data = await res.json()
+
+      const parseRes = CredentialIssuerSchema.parse(data)
+
+      setIssuerData(parseRes)
+    } catch (err) {
+      if (err instanceof ZodError) {
+        setError('Error fetching issuer data')
+      } else if (err instanceof Error) {
+        setError(err.message)
+      } else {
+        setError('An unknown error occurred')
+      }
+    }
+  }
+
+  const fetchVerificationResult = async (token: string) => {
+    try {
+      const res = await fetch(
+        `/v0/public-verification?public-credential-token=${token}`
+      )
       const data = await res.json()
 
       const parseRes = verificationResultSchema.parse(data)
@@ -68,8 +104,18 @@ const VerificationDashboard = () => {
   }
 
   useEffect(() => {
-    fetchCredential()
-    fetchVerificationResult()
+    const queryParams = new URLSearchParams(window.location.search)
+    const publicCredentialToken = queryParams.get('public-credential-token')
+
+    if (!publicCredentialToken) {
+      notFound()
+    }
+
+    const issuerUrl = extractIssuerUrlFromJWT(publicCredentialToken)
+
+    fetchIssuerData(issuerUrl)
+    fetchVerifierData()
+    fetchVerificationResult(publicCredentialToken)
   }, [])
 
   useEffect(() => {
@@ -96,17 +142,24 @@ const VerificationDashboard = () => {
         }
       >
         {currentScreen === VerificationScreenState.RESULTS &&
-        credential &&
-        verificationData ? (
+        verificationData &&
+        issuerData?.credential_configurations_supported?.['002']?.display ? (
           <VerificationPage
-            credential={credential}
+            achievementData={
+              issuerData.credential_configurations_supported['002'].display
+            }
+            issuer={issuerData}
             verificationData={verificationData}
           />
         ) : (
           <LandingPage
-            credential={credential}
+            achievementData={
+              issuerData?.credential_configurations_supported?.['002']?.display
+            }
             currentScreen={currentScreen}
+            issuerData={issuerData}
             setCurrentScreen={setCurrentScreen}
+            verifier={verifierData?.display?.at(0)}
           />
         )}
       </div>

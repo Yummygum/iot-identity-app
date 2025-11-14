@@ -4,13 +4,15 @@ import CredentialDetailsCard from '@/components/molecules/CredentialDetailsCard/
 import IssuerInfoCard from '@/components/molecules/IssuerInfoCard/IssuerInfoCard'
 import DetailsModal from '@/components/organisms/DetailsModal/DetailsModal'
 import IssuerModal from '@/components/organisms/IssuerModal/IssuerModal'
-import { TVerificationResult } from '@/lib/schemas/verificationResultSchema'
+import { TCredentialIssuer } from '@/lib/schemas/CredentialIssuerSchema'
+import { TVerificationResult } from '@/lib/schemas/VerificationResultSchema'
 
 interface IDetailCardsProps {
   credential: NonNullable<TVerificationResult['credential']>
+  issuer?: TCredentialIssuer | null
 }
 
-const DetailCards = ({ credential }: IDetailCardsProps) => {
+const DetailCards = ({ credential, issuer }: IDetailCardsProps) => {
   const [openModal, setOpenModal] = useState<'issuer' | 'credential' | null>(
     null
   )
@@ -33,15 +35,17 @@ const DetailCards = ({ credential }: IDetailCardsProps) => {
         </>
       )}
 
-      {credential.credentialSubject.achievement?.creator && (
+      {issuer && (
         <>
           <IssuerInfoCard
-            issuer={credential.credentialSubject.achievement?.creator}
+            credential={credential}
+            issuer={issuer}
             setOpenModal={setOpenModal}
           />
 
           <IssuerModal
-            issuer={credential.credentialSubject.achievement?.creator}
+            credential={credential}
+            issuer={issuer}
             openModal={openModal}
             setOpenModal={setOpenModal}
           />

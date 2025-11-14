@@ -4,7 +4,7 @@ import Markdown from 'react-markdown'
 import Icon from '@/components/atoms/Icon'
 import InfoItem from '@/components/molecules/InfoItem/InfoItem'
 import Modal from '@/components/organisms/Modal/Modal'
-import { TCredential } from '@/lib/schemas/verificationResultSchema'
+import { TCredential } from '@/lib/schemas/VerificationResultSchema'
 import { getIdentificationData } from '@/utils/getIdentificationData'
 
 interface IDetailsModalProps {
