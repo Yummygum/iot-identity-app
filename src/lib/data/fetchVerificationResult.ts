@@ -1,0 +1,26 @@
+import { ZodError } from 'zod'
+
+import { VerificationResultSchema } from '@/lib/schemas/VerificationResultSchema'
+
+const fetchVerificationResult = async (token: string) => {
+  try {
+    const res = await fetch(
+      `/v0/public-verification?public-credential-token=${token}`
+    )
+    const data = await res.json()
+
+    const parseRes = VerificationResultSchema.parse(data)
+
+    return parseRes
+  } catch (err) {
+    if (err instanceof ZodError) {
+      throw new Error(`Error verifying credential: ${err.message}`)
+    } else if (err instanceof Error) {
+      throw new Error(err.message)
+    } else {
+      throw new Error('An unknown error occurred')
+    }
+  }
+}
+
+export default fetchVerificationResult

@@ -61,7 +61,7 @@ export const credentialSchema = z.object({
   })
 })
 
-export const verificationResultSchema = z.object({
+export const VerificationResultSchema = z.object({
   credential: credentialSchema.nullable().optional(),
   proof: checkSchema,
   status: checkSchema,
@@ -83,7 +83,7 @@ export const verificationResultSchema = z.object({
   domain_linkage: checkSchema
 })
 
-export type TVerificationResult = z.infer<typeof verificationResultSchema>
+export type TVerificationResult = z.infer<typeof VerificationResultSchema>
 export type TCredential = z.infer<typeof credentialSchema>
 export type TCheck = z.infer<typeof checkSchema>
 export type TIssuer = z.infer<typeof creatorSchema>

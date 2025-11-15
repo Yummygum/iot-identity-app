@@ -78,6 +78,10 @@
     animation: moveUp 0.6s ease forwards;
   }
 
+  .move-up-small {
+    animation: moveUpSmall 0.6s ease forwards;
+  }
+
   .appear-from-right {
     animation: appearFromRight 0.2s ease forwards;
   }
@@ -95,6 +99,17 @@
 @keyframes moveUp {
   from {
     transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes moveUpSmall {
+  from {
+    transform: translateY(10px);
     opacity: 0;
   }
   to {

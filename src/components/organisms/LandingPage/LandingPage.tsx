@@ -3,26 +3,22 @@ import { Dispatch, SetStateAction } from 'react'
 import CredentialPreview from '@/components/molecules/CredentialPreview/CredentialPreview'
 import LandingHeading from '@/components/molecules/LandingHeading/LandingHeading'
 import { VerificationScreenState } from '@/components/organisms/VerificationDashboard/VerificationDashboard'
-import {
-  TCredentialConfiguration,
-  TCredentialIssuer
-} from '@/lib/schemas/CredentialIssuerSchema'
+import { useVerification } from '@/contexts/VerificationContext'
 
 interface ILandingPageProps {
   setCurrentScreen: Dispatch<SetStateAction<VerificationScreenState>>
   currentScreen: VerificationScreenState
-  verifier?: NonNullable<TCredentialIssuer['display']>[number] | null
-  issuerData?: TCredentialIssuer | null
-  achievementData?: NonNullable<TCredentialConfiguration>['display'] | null
 }
 
 const LandingPage = ({
   setCurrentScreen,
-  currentScreen,
-  verifier,
-  achievementData,
-  issuerData
+  currentScreen
 }: ILandingPageProps) => {
+  const { issuerData, verifierData } = useVerification()
+
+  const achievementData =
+    issuerData?.credential_configurations_supported?.['002']?.display
+  const verifier = verifierData?.display?.at(0)
   return (
     <div className="grid h-full grid-rows-[1fr_1fr] items-center gap-16 lg:grid-cols-2 lg:grid-rows-1">
       <LandingHeading

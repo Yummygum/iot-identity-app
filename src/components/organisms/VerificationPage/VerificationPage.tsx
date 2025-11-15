@@ -5,23 +5,23 @@ import ProgressCircle from '@/components/atoms/ProgressCircle/ProgressCircle'
 import CredentialChecks from '@/components/molecules/CredentialChecks/CredentialChecks'
 import CredentialHeading from '@/components/molecules/CredentialHeading/CredentialHeading'
 import DetailCards from '@/components/molecules/DetailCard/DetailCards'
-import {
-  TCredentialConfiguration,
-  TCredentialIssuer
-} from '@/lib/schemas/CredentialIssuerSchema'
-import { TVerificationResult } from '@/lib/schemas/VerificationResultSchema'
+import { TCredentialConfiguration } from '@/lib/schemas/CredentialIssuerSchema'
+import { useVerification } from '@/contexts/VerificationContext'
 
 interface IVerificationPageProps {
-  verificationData: TVerificationResult
   achievementData: NonNullable<TCredentialConfiguration>['display']
-  issuer?: TCredentialIssuer | null
 }
 
 const VerificationPage = ({
-  verificationData,
-  achievementData,
-  issuer
+  achievementData
 }: IVerificationPageProps) => {
+  const { verificationData, issuerData } = useVerification()
+
+  if (!verificationData) {
+    return null
+  }
+
+  const issuer = issuerData
   const checks: ICredentialCheckProps['check'][] = [
     {
       ...verificationData.proof,

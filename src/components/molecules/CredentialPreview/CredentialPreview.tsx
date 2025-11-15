@@ -28,7 +28,7 @@ const CredentialPreview = ({
       </div>
 
       {verifier && (
-        <div className="move-up top-0 right-0 z-10 h-12 w-12 overflow-hidden rounded-full opacity-0 delay-700 md:absolute md:translate-x-1/2 md:-translate-y-1/2">
+        <div className="move-up-small top-0 right-0 z-10 h-10 w-10 overflow-hidden rounded-full opacity-0 delay-700 md:absolute md:translate-x-1/2 md:-translate-y-1/2">
           <img
             alt={`${verifier.name} logo`}
             className="h-full w-auto"
