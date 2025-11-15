@@ -97,11 +97,6 @@ const DetailsModal = ({
           </div>
         </>
       )}
-
-      {/* <hr className="border-foreground/5 my-12" /> */}
-
-      {/* TODO: Dynamic table */}
-      {/* <DegreeTable /> */}
     </Modal>
   )
 }

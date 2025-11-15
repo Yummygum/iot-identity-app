@@ -2,6 +2,7 @@ import { ZodError } from 'zod'
 
 import { CredentialIssuerSchema } from '@/lib/schemas/CredentialIssuerSchema'
 
+// eslint-disable-next-line max-statements
 const fetchIssuerData = async (issuerUrl: string) => {
   try {
     const res = await fetch(
@@ -10,6 +11,13 @@ const fetchIssuerData = async (issuerUrl: string) => {
         method: 'GET'
       }
     )
+
+    if (!res.ok) {
+      throw new Error(
+        `Failed to fetch issuer data: ${res.status} ${res.statusText}`
+      )
+    }
+
     const data = await res.json()
 
     const parseRes = CredentialIssuerSchema.parse(data)

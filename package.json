@@ -9,11 +9,9 @@
     "lint": "prettier -c . && eslint "
   },
   "dependencies": {
-    "@types/jsonwebtoken": "^9.0.10",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "context-filter-polyfill": "^0.3.23",
-    "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.552.0",
     "motion": "^12.23.24",
     "next": "15.5.6",

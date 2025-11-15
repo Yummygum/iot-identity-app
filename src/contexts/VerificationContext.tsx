@@ -120,14 +120,6 @@ export const VerificationContextProvider = ({
     loadData()
   }, [])
 
-  useEffect(() => {
-    if (!error) {
-      return
-    }
-
-    console.error('Verification Error:', error)
-  }, [error])
-
   const value: VerificationContextType = {
     verificationData,
     issuerData,

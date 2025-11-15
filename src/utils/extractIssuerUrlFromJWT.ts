@@ -1,8 +1,6 @@
 import { JWTSchema } from '@/lib/schemas/JWTSchema'
 import { decodeJWT } from '@/utils/decodeJWT'
 
-const nodeEnv = process.env.NEXT_PUBLIC_NODE_ENV
-
 export const extractIssuerUrlFromJWT = (jwt: string): string => {
   const decodedJWT = decodeJWT(jwt, JWTSchema)
 
@@ -14,7 +12,7 @@ export const extractIssuerUrlFromJWT = (jwt: string): string => {
     decodedJWT.payload.aud.replace(/^did:web:/, '')
   )
 
-  if (nodeEnv === 'development') {
+  if (audience.startsWith('localhost')) {
     return `http://${audience}`
   }
 

@@ -1,9 +1,10 @@
 'use client'
 
 import Image from 'next/image'
-import { CSSProperties, useState } from 'react'
+import { CSSProperties, useState, useEffect } from 'react'
 
 import WhiteLabelGradients from '@/components/molecules/WhiteLabelGradients/WhiteLabelGradients'
+import ErrorModal from '@/components/organisms/ErrorModal/ErrorModal'
 import LandingPage from '@/components/organisms/LandingPage/LandingPage'
 import VerificationPage from '@/components/organisms/VerificationPage/VerificationPage'
 import { useVerification } from '@/contexts/VerificationContext'
@@ -18,7 +19,15 @@ const VerificationDashboard = () => {
   const [currentScreen, setCurrentScreen] = useState<VerificationScreenState>(
     VerificationScreenState.LANDING
   )
-  const { verificationData, issuerData } = useVerification()
+  const { verificationData, issuerData, error } = useVerification()
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false)
+
+  // Open error modal when error occurs
+  useEffect(() => {
+    if (error) {
+      setIsErrorModalOpen(true)
+    }
+  }, [error])
 
   return (
     <div className="relative flex min-h-screen">
@@ -72,6 +81,8 @@ const VerificationDashboard = () => {
           />
         </div>
       )}
+
+      {error && <ErrorModal error={error} isOpen={isErrorModalOpen} />}
     </div>
   )
 }

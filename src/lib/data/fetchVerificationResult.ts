@@ -2,11 +2,19 @@ import { ZodError } from 'zod'
 
 import { VerificationResultSchema } from '@/lib/schemas/VerificationResultSchema'
 
+// eslint-disable-next-line max-statements
 const fetchVerificationResult = async (token: string) => {
   try {
     const res = await fetch(
       `/v0/public-verification?public-credential-token=${token}`
     )
+
+    if (!res.ok) {
+      throw new Error(
+        `Failed to verify credential: ${res.status} ${res.statusText}`
+      )
+    }
+
     const data = await res.json()
 
     const parseRes = VerificationResultSchema.parse(data)
