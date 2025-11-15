@@ -45,6 +45,7 @@ export const VerificationContextProvider = ({
     null
   )
 
+  // Fetch verifier data (same domain as this app)
   const getVerifier = async () => {
     try {
       const res = await fetchVerifierData()
@@ -59,6 +60,7 @@ export const VerificationContextProvider = ({
     }
   }
 
+  // Fetch issuer data based on the issuer URL extracted from the JWT
   const getIssuer = async (issuerUrl: string) => {
     try {
       const res = await fetchIssuerData(issuerUrl)
@@ -72,6 +74,7 @@ export const VerificationContextProvider = ({
     }
   }
 
+  // Fetch verification result using the public credential token (same domain as this app)
   const getVerificationResult = async (token: string) => {
     try {
       const res = await fetchVerificationResult(token)
@@ -86,12 +89,12 @@ export const VerificationContextProvider = ({
   }
 
   useEffect(() => {
+    // Extract public credential token from URL query parameters
     const queryParams = new URLSearchParams(window.location.search)
     const publicCredentialToken = queryParams.get('public-credential-token')
 
     if (!publicCredentialToken) {
       notFound()
-      return
     }
 
     const loadData = async () => {
