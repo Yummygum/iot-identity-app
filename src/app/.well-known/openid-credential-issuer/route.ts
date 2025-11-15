@@ -1,3 +1,5 @@
+export const dynamic = 'force-static'
+
 const exampleCredentialIssuer = {
   credential_issuer: 'http://localhost:3034/',
   credential_endpoint: 'http://localhost:3034/openid4vci/credential',
