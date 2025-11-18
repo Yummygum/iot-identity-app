@@ -1,6 +1,5 @@
 'use client'
 
-import { notFound } from 'next/navigation'
 import {
   createContext,
   useContext,
@@ -94,7 +93,8 @@ export const VerificationContextProvider = ({
     const publicCredentialToken = queryParams.get('public-credential-token')
 
     if (!publicCredentialToken) {
-      notFound()
+      setError('Public credential token is missing from URL')
+      return
     }
 
     const loadData = async () => {
