@@ -1,13 +1,12 @@
 import { ZodError } from 'zod'
 
 import { VerificationResultSchema } from '@/lib/schemas/VerificationResultSchema'
+import constructAPIUrl from '@/utils/constructAPIUrl'
 
 // eslint-disable-next-line max-statements
 const fetchVerificationResult = async (token: string) => {
   try {
-    const res = await fetch(
-      `/v0/public-verification?public-credential-token=${token}`
-    )
+    const res = await fetch(constructAPIUrl(`/v0/public-verification?public-credential-token=${token}`))
 
     if (!res.ok) {
       throw new Error(

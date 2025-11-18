@@ -1,7 +1,7 @@
 import VerificationDashboard from '@/components/organisms/VerificationDashboard/VerificationDashboard'
 import { VerificationContextProvider } from '@/contexts/VerificationContext'
 
-// An example JWT that is valid would look like this: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3NjMxOTY5NTMsImF1ZCI6ImRpZDp3ZWI6bG9jYWxob3N0JTNBMzAzNCJ9._XwaUaiqFsodcLFVEacNDDB9K4Wm6k7go14NzGFAr3c
+// An example JWT that is valid would look like this: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3NjM0NzQ1NTIsImF1ZCI6ImRpZDp3ZWI6aHVuZ3J5LWhlaXNlbmJlcmcuZGV2Mi5pbXBpZXJjZS5jb20ifQ.C_jXcGqBpyRda53SBCGoBA0DsYioawMTE5Q8WCSA3Wo
 const Verify = () => {
   return (
     <VerificationContextProvider>

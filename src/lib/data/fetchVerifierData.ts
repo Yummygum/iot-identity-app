@@ -1,13 +1,12 @@
 import { ZodError } from 'zod'
 
 import { CredentialIssuerSchema } from '@/lib/schemas/CredentialIssuerSchema'
+import constructAPIUrl from '@/utils/constructAPIUrl'
 
 // eslint-disable-next-line max-statements
 const fetchVerifierData = async () => {
   try {
-    const res = await fetch(`/.well-known/openid-credential-issuer`, {
-      method: 'GET'
-    })
+    const res = await fetch(constructAPIUrl(`/.well-known/openid-credential-issuer`))
 
     if (!res.ok) {
       throw new Error(
