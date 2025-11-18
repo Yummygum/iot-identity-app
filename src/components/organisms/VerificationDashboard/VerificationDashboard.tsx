@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { CSSProperties, useState, useEffect } from 'react'
 
+import VerifierHeader from '@/components/molecules/VerifierHeader/VerifierHeader'
 import WhiteLabelGradients from '@/components/molecules/WhiteLabelGradients/WhiteLabelGradients'
 import ErrorModal from '@/components/organisms/ErrorModal/ErrorModal'
 import LandingPage from '@/components/organisms/LandingPage/LandingPage'
@@ -44,6 +45,8 @@ const VerificationDashboard = () => {
           } as CSSProperties
         }
       >
+        <VerifierHeader />
+
         {currentScreen === VerificationScreenState.RESULTS &&
         verificationData &&
         issuerData?.credential_configurations_supported?.['002']?.display ? (

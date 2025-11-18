@@ -2,7 +2,9 @@ import { Dispatch, SetStateAction } from 'react'
 import Markdown from 'react-markdown'
 
 import Icon from '@/components/atoms/Icon'
+import LinkedVPAchievement from '@/components/molecules/LinkedVPAchievement/LinkedVPAchievement'
 import Modal from '@/components/organisms/Modal/Modal'
+import { useVerification } from '@/contexts/VerificationContext'
 import { TCredentialIssuer } from '@/lib/schemas/CredentialIssuerSchema'
 import { TCredential } from '@/lib/schemas/VerificationResultSchema'
 
@@ -22,6 +24,8 @@ const IssuerModal = ({
   const issuerName = issuer.display?.at(0)?.name || 'Issuer'
   const issuerLogoUrl = issuer.display?.at(0)?.logo?.uri || ''
   const issuerUrl = credential?.credentialSubject.achievement?.creator?.id
+
+  const { verificationData } = useVerification()
 
   return (
     <Modal
@@ -72,52 +76,9 @@ const IssuerModal = ({
 
       <hr className="border-foreground/5 my-10" />
 
-      {/* {issuer.certifications && (
-        <>
-          <h3 className="mb-4 text-xl font-medium">Public Certifications</h3>
-
-          <div>
-            {issuer.certifications.map((certification, index) => (
-              <div className="flex flex-col gap-2 px-2 py-5" key={index}>
-                <div className="flex justify-between">
-                  <h4 className="font-medium">{certification.name}</h4>
-
-                  {certification.expiresAt && (
-                    <div className="flex items-center gap-2">
-                      <Icon name="sealCheck" />
-                      <span className="text-sm">
-                        {certification.expiresAt.toLocaleDateString('en-US', {
-                          month: 'short',
-                          day: 'numeric',
-                          year: 'numeric'
-                        })}
-                      </span>
-                    </div>
-                  )}
-                </div>
-
-                <div className="text-foreground/50 justify-between text-sm md:flex">
-                  {certification.description && (
-                    <p>{certification.description}</p>
-                  )}
-
-                  {certification.url && (
-                    <a
-                      href={certification.url}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      {certification.url}
-                    </a>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <hr className="border-foreground/5 my-10" />
-        </>
-      )} */}
+      {verificationData?.linked_vp.data && (
+        <LinkedVPAchievement linkedVPData={verificationData?.linked_vp.data} />
+      )}
 
       {/* {issuer.trust_ecosystems &&
         (issuer.trust_ecosystems?.length ?? 0) > 0 && (

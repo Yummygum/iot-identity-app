@@ -19,7 +19,7 @@ const CredentialCheck = ({ check }: ICredentialCheckProps) => {
         <div className="flex flex-col md:flex-row md:items-center md:gap-4">
           <p className="font-medium">{check.name}</p>
 
-          {typeof check.payload === 'string' && (
+          {check.status !== 'passed' && typeof check.payload === 'string' && (
             <span className="text-foreground/50 text-xs">*{check.payload}</span>
           )}
         </div>
